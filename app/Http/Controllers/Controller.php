@@ -10,4 +10,20 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    /**
+     * 返回提示信息
+     * @param string $code
+     * @param string $msg
+     * @param string $date
+     * @return false|mixed|string
+     */
+    public function getBack($code='',$msg='',$data=''){
+        $data=[
+            'code'=>$code,
+            'msg'=>$msg,
+            'data'=>$data
+        ];
+        return json_encode($data);
+    }
 }

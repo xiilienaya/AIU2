@@ -12,4 +12,6 @@ class IndexController extends Controller
        var_dump($data);
     }
 
+
+
 }
