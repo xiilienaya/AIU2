@@ -15,6 +15,10 @@ class adminController extends Controller
         return view('admin.admin.index');
     }
 
+    public function login(){
+        return view('admin.admin.login');
+    }
+
     /**
      * 图片文件上传
      */

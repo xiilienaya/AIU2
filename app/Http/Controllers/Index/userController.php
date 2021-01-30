@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cookie;
 
 class userController extends Controller
 {
@@ -23,7 +24,7 @@ class userController extends Controller
         } else if (!preg_match('#^1[3,4,5,7,8,9]{1}[\d]{9}$#', $user_tel)) {
             return $this->getBack('0', '电话号码格式错误', '');
         }
-
+        
         $result = userModel::where(['user_tel'=>$user_tel,'user_pwd'=>$user_pwd])->first();
         if($result){
             $result = empty($result) ? array():$result->toArray();
@@ -39,26 +40,14 @@ class userController extends Controller
 
         $user_tel = !empty($data['user_tel']) ? $data['user_tel'] : '';          //电话号码
         $user_name = !empty($data['user_name']) ? $data['user_name'] : '';          //用户名
-        $user_pwd = !empty($data['user_pwd']) ? $data['user_pwd'] : '';          //密码
-        $code = !empty($data['Vcode']) ? $data['Vcode'] : '';          //验证码
-
-        $checkCode = Request()->session()->get($user_tel);//获取session的值
-
+        $user_pwd = !empty($data['user_pwd']) ? $data['user_pwd'] : '';          //密码 
+         
         if (empty($user_tel)) {
             return $this->getBack('0', '电话号码不能为空', '');
         } else if (!preg_match('#^1[3,4,5,7,8,9]{1}[\d]{9}$#', $user_tel)) {
             return $this->getBack('0', '电话号码格式错误', '');
         }
-
-        //删除session中的指定值
-        if(empty($code)){
-            return $this->getBack('0', '验证码不能为空!', '');
-        }else if(empty($checkCode)){
-            return $this->getBack('0', '已过期，请重新获取。', '');
-        }else if($code!=$checkCode){
-            return $this->getBack('0', '验证码不正确!', '');
-        }
-
+ 
         $user_phone = userModel::where(['user_tel'=>$user_tel])->first();
         if($user_phone){
             return $this->getBack('0', '此号码已注册过', '');
@@ -70,8 +59,7 @@ class userController extends Controller
             'user_pwd'=>$user_pwd,
             'user_zctime'=>time(),
             'user_zctime'=>'http://www.aiu.com/896ff430gy1ghjahov32aj20u00u0dkw.jpg'
-        ];
-        Session::forget($user_tel);
+        ]; 
         $result = userModel::insertGetId($data);
         if($result){
             return $this->getBack('1','注册成功',$result);
@@ -96,16 +84,13 @@ class userController extends Controller
             return $this->getBack('0', '电话号码不能为空', '');
         } else if (!preg_match('#^1[3,4,5,7,8,9]{1}[\d]{9}$#', $user_tel)) {
             return $this->getBack('0', '电话号码格式错误', '');
-        }
+        } 
 
         //获取验证码 生成的随机数
         $rand = $this->random(4,1);
         $data = $this->SendSms($user_tel,$rand);
-        if($data['SubmitResult']['code']==2){
-            Request()->session()->put($user_tel,$rand);//设置session
-            // 写入之后保存，避免丢失
-            session()->save();
-            return $this->getBack('1','已发送','');
+        if($data['SubmitResult']['code']==2){ 
+            return $this->getBack('1','已发送',$rand);
         }else{
             return $this->getBack('0','获取验证码失败','');
         }
@@ -123,7 +108,6 @@ class userController extends Controller
         $apiKey = "";
 
         $post_data = "account=C40658027&password=435786c7ec9e7e9b2c09fe60acb649cc&mobile=".$phone."&content=".rawurlencode("您的验证码是：".$rand."。请不要把验证码泄露给其他人。");
-        var_dump($post_data);
         //查看用户名 登录用户中心->验证码通知短信>产品总览->API接口信息->APIID
         //查看密码 登录用户中心->验证码通知短信>产品总览->API接口信息->APIKEY
         $gets =  $this->xml_to_array($this->SendPost($post_data, $target));
