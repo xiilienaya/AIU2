@@ -58,7 +58,7 @@ class userController extends Controller
             'user_tel'=>$user_tel,
             'user_pwd'=>$user_pwd,
             'user_zctime'=>time(),
-            'user_zctime'=>'http://www.aiu.com/896ff430gy1ghjahov32aj20u00u0dkw.jpg'
+            'user_img'=>'http://www.aiu.com/896ff430gy1ghjahov32aj20u00u0dkw.jpg'
         ]; 
         $result = userModel::insertGetId($data);
         if($result){
