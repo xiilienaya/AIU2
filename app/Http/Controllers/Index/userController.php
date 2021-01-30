@@ -18,6 +18,12 @@ class userController extends Controller
         $user_tel = !empty($data['user_tel']) ? $data['user_tel'] : '';          //电话号码
         $user_pwd = !empty($data['user_pwd']) ? $data['user_pwd'] : '';          //密码
 
+        if (empty($user_tel)) {
+            return $this->getBack('0', '电话号码不能为空', '');
+        } else if (!preg_match('#^1[3,4,5,7,8,9]{1}[\d]{9}$#', $user_tel)) {
+            return $this->getBack('0', '电话号码格式错误', '');
+        }
+
         $result = userModel::where(['user_tel'=>$user_tel,'user_pwd'=>$user_pwd])->first();
         if($result){
             $result = empty($result) ? array():$result->toArray();
@@ -38,6 +44,12 @@ class userController extends Controller
 
         $checkCode = Request()->session()->get($user_tel);//获取session的值
 
+        if (empty($user_tel)) {
+            return $this->getBack('0', '电话号码不能为空', '');
+        } else if (!preg_match('#^1[3,4,5,7,8,9]{1}[\d]{9}$#', $user_tel)) {
+            return $this->getBack('0', '电话号码格式错误', '');
+        }
+
         //删除session中的指定值
         if(empty($code)){
             return $this->getBack('0', '验证码不能为空!', '');
@@ -51,6 +63,7 @@ class userController extends Controller
         if($user_phone){
             return $this->getBack('0', '此号码已注册过', '');
         }
+
         $data = [
             'user_name'=>$user_name,
             'user_tel'=>$user_tel,
