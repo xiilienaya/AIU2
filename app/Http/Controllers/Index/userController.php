@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\Index;
 
-use app\admin\model\user;
+use App\Model\FansModel;
 use App\Model\UserModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redis;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Cookie;
 
 class userController extends Controller
 {
+    /**
+     * 用户登录
+     * @param Request $request
+     * @return false|mixed|string
+     */
     public function login(Request $request)
     {
         $data = $request->post();
@@ -35,6 +37,11 @@ class userController extends Controller
 
     }
 
+    /**
+     * 用户注册模块
+     * @param Request $request
+     * @return false|mixed|string
+     */
     public function register(Request $request){
         $data = $request->post();
 
@@ -69,6 +76,52 @@ class userController extends Controller
 
     }
 
+    /**
+     * 用户详情
+     * @param Request $request
+     * @return false|mixed|string
+     */
+    public function userInfo(Request $request){
+        $data = $request->post();
+
+        $user_id = !empty($data['user_id']) ? $data['user_id'] : '';          //用户
+
+        if (empty($user_id)) {
+            return $this->getBack('0', '无此用户', '');
+        }
+
+        $result = userModel::where(['user_id'=>$user_id])->select('user_name','user_signature','user_img')->first();
+        $result = empty($result) ? array():$result->toArray();
+        $fans = FansModel::where(['bgz_id'=>$user_id,'status'=>1])->get();
+
+        $attention = count($fans);
+        if($attention>0){
+            $fans = $fans->toArray();
+            $fans_count = '0';
+            foreach ($fans as $key=>$value){
+                $count = FansModel::where(['bgz_id'=>$value['gz_id'],'status'=>1])->get();
+                $num = count($count);
+                if($num>0){
+                    $count =$count->toArray();
+                    $fans_count = $fans_count+$num;
+                }
+
+            }
+        }
+        $result['fs_num'] = $fans_count+$attention;
+        $result['gz_num'] = $attention;
+        if($result){
+            return $this->getBack('1','OK',$result);
+        }else{
+            return $this->getBack('0','NO','');
+        }
+
+    }
+
+    /**
+     * 发送手机验证码
+     * @return false|mixed|string
+     */
     public function phoneCode()
     {
         $data = request()->post();
