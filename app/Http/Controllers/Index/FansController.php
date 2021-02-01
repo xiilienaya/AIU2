@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Index;
 
+use App\Model\UserModel;
 use App\Model\FansModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -56,38 +57,31 @@ class FansController extends Controller
 
     }
 
-    /**
     public function focusList(Request $request){
-        $data = $request->post();
-
         $user_id = !empty($data['user_id']) ? $data['user_id'] : '';          //用户
 
         if (empty($user_id)) {
             return $this->getBack('0', '无此用户', '');
         }
 
-        $result = userModel::where(['user_id'=>$user_id])->select('user_name','user_signature','user_img')->first();
-        $result = empty($result) ? array():$result->toArray();
         $fans = FansModel::where(['bgz_id'=>$user_id,'status'=>1])->get();
 
-        $attention = count($fans);
-        if($attention>0){
-            $fans = $fans->toArray();
-            $fans_count = '0';
-            foreach ($fans as $key=>$value){
-                $count = FansModel::where(['bgz_id'=>$value['gz_id'],'status'=>1])->get();
-                $num = count($count);
-                if($num>0){
-                    $count =$count->toArray();
-                    $fans_count = $fans_count+$num;
-                }
+        if($fans){
+            $data = [];
+            foreach ($fans as $key=>$val){
+                $result = userModel::where(['user_id'=>$val['gz_id']])->select('user_id','user_name','user_signature','user_img')->first();
+                $result = empty($result) ? array():$result->toArray();
+                $fans_count = FansModel::where(['bgz_id'=>$val['gz_id'],'status'=>1])->count();
+                $attention = FansModel::where(['gz_id'=>$val['gz_id'],'status'=>1])->count();
 
+                $result['fs_num'] = $fans_count;
+                $result['gz_num'] = $attention;
+                $data[$key] = $result;
             }
         }
-        $result['fs_num'] = $fans_count+$attention;
-        $result['gz_num'] = $attention;
+
         if($result){
-            return $this->getBack('1','OK',$result);
+            return $this->getBack('1','OK',$data);
         }else{
             return $this->getBack('0','NO','');
         }
@@ -95,39 +89,32 @@ class FansController extends Controller
 
 
     public function attention(Request $request){
-        $data = $request->post();
-
-        $user_id = !empty($data['user_id']) ? $data['user_id'] : '';          //用户
+        $user_id = !empty($data['user_id']) ? $data['user_id'] : '2';          //用户
 
         if (empty($user_id)) {
             return $this->getBack('0', '无此用户', '');
         }
 
-        $result = userModel::where(['user_id'=>$user_id])->select('user_name','user_signature','user_img')->first();
-        $result = empty($result) ? array():$result->toArray();
-        $fans = FansModel::where(['bgz_id'=>$user_id,'status'=>1])->get();
+        $fans = FansModel::where(['gz_id'=>$user_id,'status'=>1])->get();
 
-        $attention = count($fans);
-        if($attention>0){
-            $fans = $fans->toArray();
-            $fans_count = '0';
-            foreach ($fans as $key=>$value){
-                $count = FansModel::where(['bgz_id'=>$value['gz_id'],'status'=>1])->get();
-                $num = count($count);
-                if($num>0){
-                    $count =$count->toArray();
-                    $fans_count = $fans_count+$num;
-                }
+        if($fans){
+            $data = [];
+            foreach ($fans as $key=>$val){
+                $result = userModel::where(['user_id'=>$val['bgz_id']])->select('user_id','user_name','user_signature','user_img')->first();
+                $result = empty($result) ? array():$result->toArray();
+                $fans_count = FansModel::where(['bgz_id'=>$val['bgz_id'],'status'=>1])->count();
+                $attention = FansModel::where(['gz_id'=>$val['bgz_id'],'status'=>1])->count();
 
+                $result['fs_num'] = $fans_count;
+                $result['gz_num'] = $attention;
+                $data[$key] = $result;
             }
         }
-        $result['fs_num'] = $fans_count+$attention;
-        $result['gz_num'] = $attention;
+
         if($result){
-            return $this->getBack('1','OK',$result);
+            return $this->getBack('1','OK',$data);
         }else{
             return $this->getBack('0','NO','');
         }
     }
-     */
 }

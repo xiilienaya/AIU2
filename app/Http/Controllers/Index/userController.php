@@ -92,23 +92,11 @@ class userController extends Controller
 
         $result = userModel::where(['user_id'=>$user_id])->select('user_name','user_signature','user_img')->first();
         $result = empty($result) ? array():$result->toArray();
-        $fans = FansModel::where(['bgz_id'=>$user_id,'status'=>1])->get();
 
-        $attention = count($fans);
-        if($attention>0){
-            $fans = $fans->toArray();
-            $fans_count = '0';
-            foreach ($fans as $key=>$value){
-                $count = FansModel::where(['bgz_id'=>$value['gz_id'],'status'=>1])->get();
-                $num = count($count);
-                if($num>0){
-                    $count =$count->toArray();
-                    $fans_count = $fans_count+$num;
-                }
+        $fans_count = FansModel::where(['bgz_id'=>$user_id,'status'=>1])->count();
+        $attention = FansModel::where(['gz_id'=>$user_id,'status'=>1])->count();
 
-            }
-        }
-        $result['fs_num'] = $fans_count+$attention;
+        $result['fs_num'] = $fans_count;
         $result['gz_num'] = $attention;
         if($result){
             return $this->getBack('1','OK',$result);
