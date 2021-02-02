@@ -91,7 +91,8 @@ class FansController extends Controller
 
     public function attention(Request $request){
         $data = $request->post();
-        $user_id = !empty($data['user_id']) ? $data['user_id'] : '2';          //用户
+
+        $user_id = !empty($data['user_id']) ? $data['user_id'] : '';          //用户
 
         if (empty($user_id)) {
             return $this->getBack('0', '无此用户', '');
