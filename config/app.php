@@ -177,6 +177,7 @@ return [
 
         //图片验证码
         Mews\Captcha\CaptchaServiceProvider::class,
+        Zizaco\Entrust\EntrustServiceProvider::class,
 
     ],
 
@@ -227,7 +228,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
-
+        'Entrust' => Zizaco\Entrust\EntrustFacade::class,
     ],
 
 ];

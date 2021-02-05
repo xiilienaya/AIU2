@@ -27,4 +27,16 @@ Route::any('attention', 'FansController@attention');
 //粉丝列表
 Route::any('focusList', 'FansController@focusList');
 
+//用户游记接口
+Route::any('userYj', 'userController@userYj');
+
+//用户收藏游记列表接口
+Route::any('userCollect', 'CollectController@userCollect');
+
+//用户 收藏 取消收藏 游记接口
+Route::any('collect', 'CollectController@collect');
+
+//用户删除游记接口
+Route::any('yjDel', 'userController@yjDel');
+
 
