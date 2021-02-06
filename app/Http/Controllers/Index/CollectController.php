@@ -25,7 +25,7 @@ class CollectController extends Controller
             return $this->getBack('0', '无此用户', '');
         }
 
-        $collect = CollectModel::where(['user_id'=>$user_id,'status'=>'1'])->get();
+        $collect = CollectModel::where(['user_id'=>$user_id])->get();
         $collect = empty($collect) ? array():$collect->toArray();
         foreach ($collect as $k=>$val){
             $youJi = YouJiModel::where(['yj_id'=>$val['yj_id']])->select('yj_title','yj_headImg','yj_id','user_id')->first();
