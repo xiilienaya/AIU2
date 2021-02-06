@@ -47,7 +47,6 @@ class CollectController extends Controller
      * @return false|mixed|string
      */
     public function collect(Request $request){
-
         $user_id = !empty($data['user_id']) ? $data['user_id'] : '';          //用户id
         $yj_id = !empty($data['yj_id']) ? $data['yj_id'] : '';          //游记id
         $status = !empty($data['status']) ? $data['status'] : '';          //状态

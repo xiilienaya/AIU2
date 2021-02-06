@@ -12,6 +12,70 @@ use App\Http\Controllers\Controller;
 class userController extends Controller
 {
     /**
+     * 发布游记
+     * @param Request $request
+     * @return false|mixed|string
+     */
+    public function addYj(Request $request){
+        $data = $request->post();
+
+        $user_id = !empty($data['user_id']) ? $data['user_id'] : '';                //用户id
+        $yj_title = !empty($data['yj_title']) ? $data['yj_title'] : '';                 //游记标题
+        $yj_publishTime = !empty($data['yj_publishTime']) ? $data['yj_publishTime'] : '';          //发表时间
+        $yj_headImg = !empty($data['yj_headImg']) ? $data['yj_headImg'] : '';          //游记头图
+        $yj_imgList = !empty($data['yj_imgList']) ? $data['yj_imgList'] : '';          //配图列表
+        $yj_content = !empty($data['yj_content']) ? $data['yj_content'] : '';          //文章内容
+        $yj_date = !empty($data['yj_date']) ? $data['yj_date'] : '';                    //出发时间
+        $yj_days = !empty($data['yj_date']) ? $data['yj_days'] : '';                    //游玩天数
+        $yj_money = !empty($data['yj_money']) ? $data['yj_money'] : '';                 //人均消费
+        $yj_destination = !empty($data['yj_destination']) ? $data['yj_destination'] : '';          //目的地
+
+        if(empty($user_id)){
+            return $this->getBack('0','无此用户','');
+        }elseif (empty($yj_title)){
+            return $this->getBack('0','游记标题,不能为空！','');
+        }elseif (empty($yj_publishTime)){
+            return $this->getBack('0','发表时间,不能为空！','');
+        }elseif (empty($yj_headImg)){
+            return $this->getBack('0','游记头图,不能为空！','');
+        }elseif (empty($yj_imgList)){
+            return $this->getBack('0','配图列表,不能为空！','');
+        }elseif (empty($yj_content)){
+            return $this->getBack('0','文章内容,不能为空！','');
+        }elseif (empty($yj_date)){
+            return $this->getBack('0','出发时间,不能为空！','');
+        }elseif (empty($yj_days)){
+            return $this->getBack('0','游玩天数,不能为空！','');
+        }elseif (empty($yj_money)){
+            return $this->getBack('0','人均消费,不能为空！','');
+        }elseif (empty($yj_destination)){
+            return $this->getBack('0','目的地,不能为空！','');
+        }
+
+        $date=[
+            'user_id'=>$user_id,
+            'yj_title'=>$yj_title,
+            'yj_publishTime'=>$yj_publishTime,
+            'yj_headImg'=>$yj_headImg,
+            'yj_imgList'=>$yj_imgList,
+            'yj_content'=>$yj_content,
+            'yj_date'=>$yj_date,
+            'yj_days'=>$yj_days,
+            'yj_money'=>$yj_money,
+            'is_tj'=>2,
+            'yj_destination'=>$yj_destination,
+        ];
+
+        $result = userModel::insertGetId($date);
+
+        if($result){
+            return $this->getBack('1','发布游记成功','');
+        }else{
+            return $this->getBack('0','发布失败','');
+        }
+    }
+
+    /**
      * 用户登录
      * @param Request $request
      * @return false|mixed|string
@@ -79,6 +143,74 @@ class userController extends Controller
     }
 
     /**
+     * 用户的个人修改
+     * @param Request $request
+     * @return false|mixed|string
+     */
+    public function userUpdate(Request $request){
+        $data = $request->post();
+
+        $user_id = !empty($data['user_id']) ? $data['user_id'] : '';          //唯一id
+        $user_img = !empty($data['user_img']) ? $data['user_img'] : '';          //用户头像
+        $user_name = !empty($data['user_name']) ? $data['user_name'] : '';          //用户名
+        $user_sex = !empty($data['user_sex']) ? $data['user_sex'] : '';          //用户性别
+
+        if(empty($user_id)){
+            return $this->getBack('0', '无此用户', '');
+        }else if(empty($user_img)){
+            return $this->getBack('0', '用户头像，不能为空！', '');
+        }else if(empty($user_name)){
+            return $this->getBack('0', '用户名，不能为空！', '');
+        }else if(empty($user_sex)){
+            return $this->getBack('0', '用户性别，不能为空！', '');
+        }
+
+        $data = [
+            'user_name'=>$user_name,
+            'user_img'=>$user_img,
+            'user_sex'=>$user_sex
+        ];
+        $result = userModel::where(['user_id'=>$user_id])->update($data);
+        if($result){
+            return $this->getBack('1','修改成功',$result);
+        }else{
+            return $this->getBack('0','修改失败','');
+        }
+    }
+
+    /**
+     * 修改密码
+     * @param Request $request
+     * @return false|mixed|string
+     */
+    public function userPwd(Request $request){
+        $data = $request->post();
+
+        $user_id = !empty($data['user_id']) ? $data['user_id'] : '';          //唯一id
+        $user_oldPwd = !empty($data['user_oldPwd']) ? $data['user_oldPwd'] : '';          //老的密码
+        $user_newPwd = !empty($data['user_newPwd']) ? $data['user_newPwd'] : '';          //新的密码
+
+        if(empty($user_id)){
+            return $this->getBack('0', '无此用户', '');
+        }else if(empty($user_oldPwd)){
+            return $this->getBack('0', '用户头像，不能为空！', '');
+        }else if(empty($user_newPwd)){
+            return $this->getBack('0', '用户名，不能为空！', '');
+        }
+
+        $data = [
+            'user_newPwd'=>$user_newPwd,
+        ];
+
+        $result = userModel::where(['user_id'=>$user_id])->update($data);
+        if($result){
+            return $this->getBack('1','修改成功',$result);
+        }else{
+            return $this->getBack('0','修改失败','');
+        }
+    }
+
+    /**
      * 用户详情
      * @param Request $request
      * @return false|mixed|string
@@ -123,8 +255,6 @@ class userController extends Controller
 
         $result = YouJiModel::where(['user_id'=>$user_id])->orderBy('yj_date','desc')->get();
         $result = empty($result) ? array():$result->toArray();
-
-
 
         if($result){
             foreach ($result as $k=>$val){

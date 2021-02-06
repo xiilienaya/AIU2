@@ -57,6 +57,11 @@ class FansController extends Controller
 
     }
 
+    /**
+     * 获取粉丝列表
+     * @param Request $request
+     * @return false|mixed|string
+     */
     public function focusList(Request $request){
         $data = $request->post();
         $user_id = !empty($data['user_id']) ? $data['user_id'] : '';          //用户
@@ -88,7 +93,11 @@ class FansController extends Controller
         }
     }
 
-
+    /**
+     *
+     * @param Request $request
+     * @return false|mixed|string
+     */
     public function attention(Request $request){
         $data = $request->post();
 
