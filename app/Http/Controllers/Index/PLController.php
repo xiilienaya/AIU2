@@ -18,6 +18,8 @@ class PLController extends Controller
      * @return false|mixed|string
      */
     public function PL(Request $request){
+        $data = $request->post();
+
         $user_id = !empty($data['user_id']) ? $data['user_id'] : '';          //用户id
         $yj_id = !empty($data['yj_id']) ? $data['yj_id'] : '';          //游记id
         $pl_content = !empty($data['pl_content']) ? $data['pl_content'] : '';          //评论信息
@@ -44,7 +46,9 @@ class PLController extends Controller
      * 评论删除
      * @return false|mixed|string
      */
-    public function PLDel(){
+    public function PLDel(Request $request){
+        $data = $request->post();
+
         $user_id = !empty($data['user_id']) ? $data['user_id'] : '';          //用户id
         $yj_id = !empty($data['yj_id']) ? $data['yj_id'] : '';          //游记id
         $status = !empty($data['status']) ? $data['status'] : '';          //状态
@@ -74,8 +78,10 @@ class PLController extends Controller
      * 游记评论列表
      * @return false|mixed|string
      */
-    public function yjPLList(){
-        $yj_id = !empty($data['yj_id']) ? $data['yj_id'] : '1';          //游记id
+    public function yjPLList(Request $request){
+        $data = $request->post();
+
+        $yj_id = !empty($data['yj_id']) ? $data['yj_id'] : '';          //游记id
 
         if (empty($yj_id)) {
             return $this->getBack('0', '无此游记', '');
@@ -104,8 +110,10 @@ class PLController extends Controller
      * 游记详情
      * @return false|mixed|string
      */
-    public function yjDetail(){
-        $yj_id = !empty($data['yj_id']) ? $data['yj_id'] : '1';          //游记id
+    public function yjDetail(Request $request){
+        $data = $request->post();
+
+        $yj_id = !empty($data['yj_id']) ? $data['yj_id'] : '';          //游记id
 
         if (empty($yj_id)) {
             return $this->getBack('0', '无此游记', '');

@@ -154,6 +154,7 @@ class userController extends Controller
         $user_img = !empty($data['user_img']) ? $data['user_img'] : '';          //用户头像
         $user_name = !empty($data['user_name']) ? $data['user_name'] : '';          //用户名
         $user_sex = !empty($data['user_sex']) ? $data['user_sex'] : '';          //用户性别
+        $user_signature = !empty($data['user_signature']) ? $data['user_signature'] : '';          //用户性别
 
         if(empty($user_id)){
             return $this->getBack('0', '无此用户', '');
@@ -163,12 +164,15 @@ class userController extends Controller
             return $this->getBack('0', '用户名，不能为空！', '');
         }else if(empty($user_sex)){
             return $this->getBack('0', '用户性别，不能为空！', '');
+        } else if(empty($user_signature)){
+            return $this->getBack('0', '个人签名，不能为空！', '');
         }
 
         $data = [
             'user_name'=>$user_name,
             'user_img'=>$user_img,
-            'user_sex'=>$user_sex
+            'user_sex'=>$user_sex,
+            'user_signature'=>$user_signature
         ];
         $result = userModel::where(['user_id'=>$user_id])->update($data);
         if($result){
@@ -204,7 +208,7 @@ class userController extends Controller
 
         $result = userModel::where(['user_id'=>$user_id])->update($data);
         if($result){
-            return $this->getBack('1','修改成功',$result);
+            return $this->getBack('1','修改成功','');
         }else{
             return $this->getBack('0','修改失败','');
         }
