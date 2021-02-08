@@ -204,10 +204,10 @@ class userController extends Controller
         }
 
         $data = [
-            'user_newPwd'=>$user_newPwd,
+            'user_pwd'=>$user_newPwd,
         ];
 
-        $result = userModel::where(['user_id'=>$user_id])->update($data);
+        $result = userModel::where(['user_id'=>$user_id,'user_pwd'=>$user_oldPwd])->update($data);
         if($result){
             return $this->getBack('1','修改成功','');
         }else{

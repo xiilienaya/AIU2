@@ -22,6 +22,11 @@ class IndexController extends Controller
         $file = $request->file('file');
         $status = $request->post('status');
 //        status:1.headImg  2.imgList 3.userImg
+
+        $clientName = $file->getClientOriginalName();
+        $file_size = $_FILES["file"]["size"];
+        $extension = $file->getClientOriginalExtension();
+
         if ($status == '1'){
             $name = 'headImg/';
         }else if($status == '2'){
@@ -56,7 +61,7 @@ class IndexController extends Controller
 
                 $src = [
                     'src' => $namePath,
-                    'img' => $url_path . $newName,
+                    'img' => 'http://www.aiu.com'.'/upload/'.$name.$time .'/'. $newName,
                 ];
 
                 return $this->getback('1', '上传成功', $src);
@@ -64,5 +69,6 @@ class IndexController extends Controller
             return $this->getback('0','参数错误，上传失败！','');
         }
 
+        return $this->getback('0','参数错误，上传失败！','');
     }
 }
