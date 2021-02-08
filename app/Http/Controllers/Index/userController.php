@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Index;
 
+use App\Model\CollectModel;
 use App\Model\FansModel;
 use App\Model\LikeModel;
 use App\Model\UserModel;
@@ -259,10 +260,10 @@ class userController extends Controller
 
         $result = YouJiModel::where(['user_id'=>$user_id])->orderBy('yj_date','desc')->get();
         $result = empty($result) ? array():$result->toArray();
-
         if($result){
             foreach ($result as $k=>$val){
                 $result[$k]['like_num'] =    LikeModel::where(['yj_id'=>$val['yj_id']])->count();
+                $result[$k]['collect_num'] =    CollectModel::where(['yj_id'=>$val['yj_id']])->count();
             }
             return $this->getBack('1','OK',$result);
         }else{
