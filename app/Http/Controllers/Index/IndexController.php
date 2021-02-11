@@ -19,13 +19,11 @@ class IndexController extends Controller
      * @return false|mixed|string
      */
     public function imgUrl(Request $request){
-        $file = $request->file('file');
-        $status = $request->post('status');
-//        status:1.headImg  2.imgList 3.userImg
+        $data = $request->post();
 
-        $clientName = $file->getClientOriginalName();
-        $file_size = $_FILES["file"]["size"];
-        $extension = $file->getClientOriginalExtension();
+        $file = !empty($data['file']) ? $data['file'] : '';          //
+        $status = !empty($data['status']) ? $data['status'] : '';          //
+//        status:1.headImg  2.imgList 3.userImg
 
         if ($status == '1'){
             $name = 'headImg/';
@@ -45,7 +43,7 @@ class IndexController extends Controller
                 mkdir($url_path, 0777, true);
             }
             $clientName = $file->getClientOriginalName();
-            $file_size = $_FILES["file"]["size"];
+            $file_size = $file["size"];
             $extension = $file->getClientOriginalExtension();
             if (!in_array($extension, $rule)) {
                 return $this->getback('0', '图片格式jpg，png，gif', '');

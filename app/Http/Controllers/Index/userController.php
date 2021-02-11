@@ -155,7 +155,7 @@ class userController extends Controller
         $user_img = !empty($data['user_img']) ? $data['user_img'] : '';          //用户头像
         $user_name = !empty($data['user_name']) ? $data['user_name'] : '';          //用户名
         $user_sex = !empty($data['user_sex']) ? $data['user_sex'] : '';          //用户性别
-        $user_signature = !empty($data['user_signature']) ? $data['user_signature'] : '';          //用户性别
+        $user_signature = !empty($data['user_signature']) ? $data['user_signature'] : '';          //个人签名
 
         if(empty($user_id)){
             return $this->getBack('0', '无此用户', '');
