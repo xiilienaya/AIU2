@@ -34,7 +34,7 @@ class IndexController extends Controller
             return $this->getBack('0','状态错误','');
         }
 
-        $up_dir = base_path()."public/upload/";
+        $up_dir = base_path()."/public/upload/";
         if (!is_dir($up_dir)) {
             mkdir($up_dir, 0777, true);
         }
