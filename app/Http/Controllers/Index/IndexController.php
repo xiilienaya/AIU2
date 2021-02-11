@@ -23,9 +23,6 @@ class IndexController extends Controller
 
         $file = !empty($data['file']) ? $data['file'] : '';          //用户
         $status = !empty($data['status']) ? $data['status'] : '';          //用户
-        $file = $request->file('file');
-//        $status = $request->post('status');
-//        status:1.headImg  2.imgList 3.userImg
 
         if ($status == '1'){
             $name = 'headImg/';
@@ -37,38 +34,32 @@ class IndexController extends Controller
             return $this->getBack('0','状态错误','');
         }
 
-        $time = date('Y-m-d');
-        $url_path = $_SERVER['DOCUMENT_ROOT'].'/upload/'.$name.$time;
-        $rule = ['jpg', 'png', 'gif'];
-        if ($file->isValid()) {
-            if (!is_dir($url_path)) {
-                mkdir($url_path, 0777, true);
+        $up_dir = base_path()."public/upload/";
+        if (!is_dir($up_dir)) {
+            mkdir($up_dir, 0777, true);
+        }
+        if(preg_match('/^(data:\s*image\/(\w+);base64,)/', $file, $result)){
+            $type = $result[2];
+            if(in_array($type,array('pjpeg','jpeg','jpg','gif','bmp','png'))){
+                $new = date('YmdHis').'.'.$type;
+                $new_file = $up_dir.$new;
+                if(file_put_contents($new_file, base64_decode(str_replace($result[1], '', $file)))){
+                    $img_path = str_replace('', '', $new_file);
+                    $src = [
+                        'src' => $img_path,
+                        'img' => 'http://www.aiu.com'.'/upload/'.$new,
+                    ];
+
+                    return $this->getback('1', '上传成功', $src);
+                }else{
+                    return $this->getback('0','参数错误，上传失败！','');
+                }
+            }else{
+                return $this->getback('0', '图片格式pjpeg,jpeg,jpg,gif,bmp,png', '');
             }
-            $clientName = $file->getClientOriginalName();
-            $file_size = $_FILES["file"]["size"];
-            $extension = $file->getClientOriginalExtension();
-            if (!in_array($extension, $rule)) {
-                return $this->getback('0', '图片格式jpg，png，gif', '');
-            } elseif ($file_size > 5242580) { // 文件太大了
-                return $this->getback('0', '上传文件不能大于5MB', '');
-            }
-            $newName = md5(date("Y-m-d H:i:s") . $clientName) . "." . $extension;
 
-            $namePath = $url_path . '/' . $newName;
-
-            $path = $file -> move( $url_path , $newName );
-            if ($path){
-
-                $src = [
-                    'src' => $namePath,
-                    'img' => 'http://www.aiu.com'.'/upload/'.$name.$time .'/'. $newName,
-                ];
-
-                return $this->getback('1', '上传成功', $src);
-            }
+        }else{
             return $this->getback('0','参数错误，上传失败！','');
         }
-
-        return $this->getback('0','参数错误，上传失败！','');
     }
 }
