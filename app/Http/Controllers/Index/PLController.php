@@ -49,11 +49,11 @@ class PLController extends Controller
     public function PLDel(Request $request){
         $data = $request->post();
 
-        $user_id = !empty($data['user_id']) ? $data['user_id'] : '';          //用户id
+        $pl_id = !empty($data['pl_id']) ? $data['pl_id'] : '';          //用户id
         $yj_id = !empty($data['yj_id']) ? $data['yj_id'] : '';          //游记id
         $status = !empty($data['status']) ? $data['status'] : '';          //状态
 
-        if (empty($user_id)) {
+        if (empty($pl_id)) {
             return $this->getBack('0', '无此用户', '');
         }elseif (empty($yj_id)) {
             return $this->getBack('0', '无此游记', '');
@@ -61,7 +61,7 @@ class PLController extends Controller
             return $this->getBack('0', '状态不正确', '');
         }
 
-        $where = ['user_id'=>$user_id,'yj_id'=>$yj_id];
+        $where = ['pl_id'=>$pl_id,'yj_id'=>$yj_id];
         if ($status == '2'){
             $collect = PLModel::where($where)->delete();
             if($collect){
