@@ -28,7 +28,7 @@ class PLController extends Controller
             return $this->getBack('0', '无此用户', '');
         }elseif (empty($yj_id)) {
             return $this->getBack('0', '无此游记', '');
-        }elseif (empty($status)) {
+        }elseif (empty($pl_content)) {
             return $this->getBack('0', '评论信息', '');
         }
 
