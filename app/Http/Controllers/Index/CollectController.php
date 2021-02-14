@@ -86,4 +86,27 @@ class CollectController extends Controller
             return $this->getBack('0', '状态不正确', '');
         }
     }
+
+
+    public function collectStatus(Request $request){
+        $data = $request->post();
+
+        $user_id = !empty($data['user_id']) ? $data['user_id'] : '';          //用户id
+        $yj_id = !empty($data['yj_id']) ? $data['yj_id'] : '';          //游记id
+
+        if (empty($user_id)) {
+            return $this->getBack('0', '无此用户', '');
+        }elseif (empty($yj_id)) {
+            return $this->getBack('0', '无此游记', '');
+        }
+
+        $where = ['user_id'=>$user_id,'yj_id'=>$yj_id];
+
+        $collect = CollectModel::where($where)->first();
+        if($collect){
+            return $this->getBack('1','已收藏','');
+        }else{
+            return $this->getBack('0','未收藏','');
+        }
+    }
 }

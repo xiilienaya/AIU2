@@ -12,6 +12,82 @@ use App\Http\Controllers\Controller;
 
 class userController extends Controller
 {
+
+    public function destination(Request $request){
+        $data = $request->post();
+
+        $yj_destination = !empty($data['yj_destination']) ? $data['yj_destination'] : '';                //目的地不能为空
+        if(empty($yj_destination)){
+            return $this->getBack('0','目的地不能为空','');
+        }
+
+        $result = YouJiModel::where(['yj_destination'=>$yj_destination])->orderBy('yj_date','desc')->get();
+        $result = empty($result) ? array():$result->toArray();
+
+        if($result){
+            foreach($result as $key=>$value){
+                $user = userModel::where(['user_id'=>$value['user_id']])->select('user_name','user_img')->first();
+                $result[$key]['user_img'] = $user['user_img'];
+                $result[$key]['user_name'] = $user['user_name'];
+            }
+            return $this->getBack('1','OK',$result);
+        }else{
+            return $this->getBack('0','NO','');
+        }
+
+    }
+
+    public function yjTjList(Request $request){
+        $result = YouJiModel::where(['is_tj'=>'1'])->orderBy('yj_date','desc')->get();
+        $result = empty($result) ? array():$result->toArray();
+        if($result){
+            foreach($result as $key=>$value){
+                $user = userModel::where(['user_id'=>$value['user_id']])->select('user_name','user_img')->first();
+                $result[$key]['user_img'] = $user['user_img'];
+                $result[$key]['user_name'] = $user['user_name'];
+            }
+            return $this->getBack('1','OK',$result);
+        }else{
+            return $this->getBack('0','NO','');
+        }
+    }
+
+    public function yjLBList(Request $request){
+        $result = YouJiModel::orderBy('yj_date','desc')->get();
+        $result = empty($result) ? array():$result->toArray();
+        if($result){
+            foreach($result as $key=>$value){
+                $user = userModel::where(['user_id'=>$value['user_id']])->select('user_name','user_img')->first();
+                $result[$key]['user_img'] = $user['user_img'];
+                $result[$key]['user_name'] = $user['user_name'];
+            }
+            return $this->getBack('1','OK',$result);
+        }else{
+            return $this->getBack('0','NO','');
+        }
+    }
+
+
+    /**
+     * @param Request $request
+     * @return false|mixed|string
+     */
+    public function user(Request $request){
+        $data = $request->post();
+
+        $user_id = !empty($data['user_id']) ? $data['user_id'] : '';                //用户id
+        if(empty($user_id)){
+            return $this->getBack('0','无此用户','');
+        }
+
+        $result = userModel::where(['user_id'=>$user_id])->first();
+        if($result){
+            return $this->getBack('1','OK',$result);
+        }else{
+            return $this->getBack('0','NO','');
+        }
+    }
+
     /**
      * 发布游记
      * @param Request $request

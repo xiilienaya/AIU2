@@ -55,4 +55,25 @@ class LikeController extends Controller
             return $this->getBack('0', '状态不正确', '');
         }
     }
+
+    /**
+     * @param Request $request
+     * @return false|mixed|string
+     */
+    public function likeStatus(Request $request){
+        $data = $request->post();
+
+        $user_id = !empty($data['user_id']) ? $data['user_id'] : '';          //用户id
+        $yj_id = !empty($data['yj_id']) ? $data['yj_id'] : '';          //游记id
+
+        $where = ['user_id'=>$user_id,'yj_id'=>$yj_id];
+
+        $collect = LikeModel::where($where)->first();
+
+        if($collect){
+            return $this->getBack('1','已点赞','');
+        }else{
+            return $this->getBack('0','未点赞','');
+        }
+    }
 }

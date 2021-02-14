@@ -129,4 +129,29 @@ class FansController extends Controller
             return $this->getBack('0','NO','');
         }
     }
+
+    /**
+     * @param Request $request
+     * @return false|mixed|string
+     */
+    public function gzStatus(Request $request){
+        $data = $request->post();
+
+        $gz_id = !empty($data['gz_id']) ? $data['gz_id'] : '';          //关注
+        $bgz_id = !empty($data['bgz_id']) ? $data['bgz_id'] : '';          //被关注
+
+        if (empty($gz_id)) {
+            return $this->getBack('0', '关注为空', '');
+        }else if(empty($bgz_id)){
+            return $this->getBack('0', '被关注为空', '');
+        }
+
+        $result = FansModel::where(['gz_id'=>$gz_id,'bgz_id'=>$bgz_id,'status'=>1])->first();
+
+        if($result){
+            return $this->getBack('1','已关注','');
+        }else{
+            return $this->getBack('0','未关注','');
+        }
+    }
 }
