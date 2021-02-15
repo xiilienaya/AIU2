@@ -66,7 +66,7 @@ class CoutryController extends Controller
             return $this->getBack('0', '城市id', '');
         }
         $where = ['city_country'=>$city_country];
-        $result = CityTModel::where($where)->first();
+        $result = CityTModel::where($where)->get();
 
         if($result){
             return $this->getBack('1','OK',$result);
