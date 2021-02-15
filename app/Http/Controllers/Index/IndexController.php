@@ -12,7 +12,6 @@ class IndexController extends Controller
        var_dump($data);
     }
 
-
     /**
      * 图片路径
      * @param Request $request
@@ -30,14 +29,17 @@ class IndexController extends Controller
             $name = 'imgList/';
 
             //列表数组
-
+            foreach ($file as $k=>$value){
+                $arr[$k] = $this->imgList($name,$value);
+            }
+            return $this->getBack('1','返回成功',$arr);
         }else if($status == '3'){
             $name = 'userImg/';
         }else{
             return $this->getBack('0','状态错误','');
         }
 
-        $up_dir = base_path()."/public/upload/";
+        $up_dir = base_path()."/public/upload/".$name;
         if (!is_dir($up_dir)) {
             mkdir($up_dir, 0777, true);
         }
@@ -50,7 +52,7 @@ class IndexController extends Controller
                     $img_path = str_replace('', '', $new_file);
                     $src = [
                         'src' => $img_path,
-                        'img' => 'http://www.aiu.com'.'/upload/'.$new,
+                        'img' => 'http://www.aiu.com'.'/upload/'.$name.$new,
                     ];
 
                     return $this->getback('1', '上传成功', $src);
@@ -64,5 +66,29 @@ class IndexController extends Controller
         }else{
             return $this->getback('0','参数错误，上传失败！','');
         }
+    }
+
+    public function imgList($name,$file){
+        $up_dir = base_path()."/public/upload/".$name;
+        if (!is_dir($up_dir)) {
+            mkdir($up_dir, 0777, true);
+        }
+        if(preg_match('/^(data:\s*image\/(\w+);base64,)/', $file, $result)){
+            $type = $result[2];
+            if(in_array($type,array('pjpeg','jpeg','jpg','gif','bmp','png'))){
+                $new = date('YmdHis').'.'.$type;
+                $new_file = $up_dir.$new;
+                if(file_put_contents($new_file, base64_decode(str_replace($result[1], '', $file)))){
+                    str_replace('', '', $new_file);
+                    $img = 'http://www.aiu.com'.'/upload/'.$name.$new;
+                }
+            }else{
+                $stats = '图片格式pjpeg,jpeg,jpg,gif,bmp,png';
+            }
+        }
+        if(empty($stats)){
+            $stats = '参数错误，上传失败！';
+        }
+        return $stats;
     }
 }
