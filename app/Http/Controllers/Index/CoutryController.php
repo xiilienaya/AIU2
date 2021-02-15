@@ -60,7 +60,7 @@ class CoutryController extends Controller
     public function countryHot(Request $request){
         $data = $request->post();
 
-        $city_country = !empty($data['city_country']) ? $data['city_country'] : '';          //城市id
+        $city_country = !empty($data['country_id']) ? $data['country_id'] : '';          //城市id
 
         if (empty($city_country)) {
             return $this->getBack('0', '城市id', '');
