@@ -55,7 +55,7 @@
                             ,"user_sex": "<?php if($v->user_sex=='1') {echo "<a class='layui-btn layui-btn-sm layui-bg-black'>男</a>";}else if($v->user_sex=='2'){ echo "<a class='layui-btn layui-btn-normal layui-btn-sm'>女</a>";}else{ echo "<a class='layui-btn layui-btn-danger layui-btn-sm'>???</a>";}?>"
                             ,"user_img": "<?php if($v->user_img=='') {}else{ echo "<img  src='{$v->user_img}'>";}?>"
                             ,"user_zctime": "{{date('Y-m-d H:i:s',$v->user_zctime)}}"
-                            ,"operate": "<a class='layui-btn layui-btn-danger layui-btn-sm del' company_id='{$v->user_id}'>删除</a>"
+                            ,"operate": "<a class='layui-btn layui-btn-danger layui-btn-sm del' user_id={{$v->user_id}}>删除</a>"
                         },
                         <?php } ?>
                     ]
@@ -67,11 +67,11 @@
                 });
                 //删除
                 $('tbody').on('click',".del",function() {
-                    var company_id=$(this).attr('company_id');
+                    var user_id=$(this).attr('user_id');
 
                     layer.confirm('确定删除吗?', {icon: 3, title:'温馨提示'}, function(index){
                         $.ajax({
-                            url: "/admin/user/" + company_id,
+                            url: "/admin/user/" + user_id,
                             type: "POST",
                             data: {_method: "DELETE"},
                             dataType: "json",

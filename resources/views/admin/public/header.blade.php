@@ -62,6 +62,18 @@
                         <dd><a class="layui-icon layui-icon-picture-fine" href="{{url('/admin/user')}}"> &ensp;&ensp;用户管理</a></dd>
                     </dl>
                 </li>
+                <li class="layui-nav-item">
+                    <a class="layui-icon layui-icon-picture-fine" href="javascript:;"> &ensp;&ensp;游记管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a class="layui-icon layui-icon-picture-fine" > &ensp;&ensp;游记管理</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a class="layui-icon layui-icon-picture-fine" href="javascript:;"> &ensp;&ensp;景点管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a class="layui-icon layui-icon-picture-fine" > &ensp;&ensp;用户管理</a></dd>
+                    </dl>
+                </li>
             </ul>
         </div>
     </div>
