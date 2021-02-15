@@ -11,4 +11,10 @@ Route::any('admin', 'adminController@admin');
 Route::any('login', 'adminController@login');
 
 //图片上传jpg
-Route::any('uploadImg', 'adminController@uploadImg');
+//Route::any('uploadImg', 'adminController@uploadImg');
+
+Route::resource("/user","userController");
+
+Route::resource("/youJi","YouJiSlideController");
+
+//Route::resource("/slide","Index\AdminSlideController");

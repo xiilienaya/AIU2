@@ -54,15 +54,14 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item"><a class="layui-icon layui-icon-home" href="{{url('/admin/admin')}}"> &ensp;&ensp;主页</a></li>
+
                 <li class="layui-nav-item">
-                    <a href="javascript:;">首页</a>
+                    <a class="layui-icon layui-icon-picture-fine" href="javascript:;"> &ensp;&ensp;用户管理</a>
                     <dl class="layui-nav-child">
-                        {{--<dd><a href="{{url('admin\accountAdd')}}">关键字添加</a></dd>--}}
-                        {{--<dd><a href="{{url('admin\menuAdd')}}">自定义菜单栏</a></dd>--}}
-                        <dd><a href="">超链接</a></dd>
+                        <dd><a class="layui-icon layui-icon-picture-fine" href="{{url('/admin/user')}}"> &ensp;&ensp;用户管理</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href=""></a></li>
             </ul>
         </div>
     </div>
