@@ -28,6 +28,9 @@ class IndexController extends Controller
             $name = 'headImg/';
         }else if($status == '2'){
             $name = 'imgList/';
+
+            //列表数组
+
         }else if($status == '3'){
             $name = 'userImg/';
         }else{
