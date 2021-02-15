@@ -16,6 +16,7 @@ Route::post('userUpdate','userController@userUpdate');  //修改个人信息
 //关注 与取消关注
 Route::post('focusUser', 'FansController@focusUser');
 Route::post('attention', 'FansController@attention');   //关注列表
+Route::post('gzStatus','FansController@gzStatus');  //前端调用 用户关注状态
 
 //粉丝列表
 Route::post('focusList', 'FansController@focusList');
@@ -40,8 +41,6 @@ Route::post('yjDetail', 'PLController@yjDetail');   //获取单个个游记详�
 //前端调用 上传图片
 Route::post('imgUrl','indexController@imgUrl');
 
-//前端调用 用户关注状态
-Route::post('gzStatus','indexController@gzStatus');
 
 //前端调用 用户点赞状态  用户 点赞 游记接口
 Route::post('like', 'LikeController@like');
