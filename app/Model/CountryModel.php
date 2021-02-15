@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CountryModel extends Model
 {
-    protected $primaryKey='county_id';
-    protected $table='county-table';
+    protected $primaryKey='country_id';
+    protected $table='country-table';
     public $timestamps=false;
 }
