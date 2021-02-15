@@ -23,7 +23,7 @@ Route::post('focusList', 'FansController@focusList');
 
 //用户游记接口
 Route::post('userYj', 'userController@userYj');
-Route::post('addYj', 'PLController@addYj');         //发布游记
+Route::post('addYj', 'userController@addYj');         //发布游记
 Route::post('yjDel', 'userController@yjDel');       //用户 删除 游记接口
 Route::get('yjLBList', 'userController@yjLBList');       //获取轮播数据游记接口
 Route::get('yjTjList', 'userController@yjTjList');       //获取首页游记列表 游记接口
