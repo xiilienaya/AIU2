@@ -80,7 +80,7 @@ class IndexController extends Controller
                 $new_file = $up_dir.$new;
                 if(file_put_contents($new_file, base64_decode(str_replace($result[1], '', $file)))){
                     str_replace('', '', $new_file);
-                    $img = 'http://www.aiu.com'.'/upload/'.$name.$new;
+                    $stats = 'http://www.aiu.com'.'/upload/'.$name.$new;
                 }
             }else{
                 $stats = '图片格式pjpeg,jpeg,jpg,gif,bmp,png';
