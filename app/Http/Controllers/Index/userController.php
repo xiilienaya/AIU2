@@ -143,7 +143,7 @@ class userController extends Controller
             'yj_destination'=>$yj_destination,
         ];
 
-        $result = userModel::insertGetId($date);
+        $result = YouJiModel::insertGetId($date);
 
         if($result){
             return $this->getBack('1','发布游记成功','');
