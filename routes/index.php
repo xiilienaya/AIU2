@@ -53,10 +53,18 @@ Route::post('collect', 'CollectController@collect');
 Route::post('spot','SpotController@spot');          //城市获取景点
 Route::post('spotDetail','SpotController@spotDetail');  //景点详情
 Route::post('spotHot','SpotController@spotHot');        //城市热门景点详情
-
-
 Route::post('cityDetail','CoutryController@cityDetail');  //城市详情
 Route::post('countryDetail','CoutryController@countryDetail');  //国家详情
 Route::post('countryHot','CoutryController@countryHot');  //国家热门城市
 
 
+//酒店获取
+Route::get('hotelList','HotelController@hotelList');    //获取全部酒店信息列表
+Route::post('hotelSel','HotelController@hotelSel');  //标签筛选酒店列表
+Route::post('hotelDetail','HotelController@hotelDetail');  //取酒店详情
+Route::post('hotelType','HotelController@hotelType');  //取酒店类型
+Route::post('hotelPl','HController@hotelPl');  //取酒店评论
+Route::post('addOrder','HController@addOrder');  //添加的订单
+Route::post('selOrder','HController@selOrder');  //查询酒店订单
+Route::post('orderDetail','HController@orderDetail');  //查询订单详情
+Route::post('orderCancel','HController@orderCancel');  //取消订单

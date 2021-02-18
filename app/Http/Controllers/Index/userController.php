@@ -232,6 +232,7 @@ class userController extends Controller
         $user_name = !empty($data['user_name']) ? $data['user_name'] : '';          //用户名
         $user_sex = !empty($data['user_sex']) ? $data['user_sex'] : '';          //用户性别
         $user_signature = !empty($data['user_signature']) ? $data['user_signature'] : '';          //个人签名
+        $user_card = !empty($data['user_card']) ? $data['user_card'] : '';          //卡号
 
         if(empty($user_id)){
             return $this->getBack('0', '无此用户', '');
@@ -243,13 +244,16 @@ class userController extends Controller
             return $this->getBack('0', '用户性别，不能为空！', '');
         } else if(empty($user_signature)){
             return $this->getBack('0', '个人签名，不能为空！', '');
+        }else if(empty($user_signature)){
+            return $this->getBack('0', '卡号，不能为空！', '');
         }
 
         $data = [
             'user_name'=>$user_name,
             'user_img'=>$user_img,
             'user_sex'=>$user_sex,
-            'user_signature'=>$user_signature
+            'user_signature'=>$user_signature,
+            'user_card'=>$user_card
         ];
         $result = userModel::where(['user_id'=>$user_id])->update($data);
         if($result){
