@@ -256,7 +256,7 @@ class HotelController extends Controller
 
         $horder = HorderModel::where(['horder_id'=>$horder_id,'horder_num'=>'1','horder_state'=>'1'])->update(['horder_state'=>$horder_state]);
         if($horder){
-            return $this->getBack('1','取消成功',‘’);
+            return $this->getBack('1','取消成功','');
         }else{
             return $this->getBack('0','NO','');
         }
