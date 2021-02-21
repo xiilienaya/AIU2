@@ -222,8 +222,8 @@ class HotelController extends Controller
         $data =[];
 
         $data['horder'] = HorderModel::where(['horder_id'=>$horder_id])->first()->toArray();
-        $data['hotel'] = HotelModel::where(['hotel_id'=>$data['hotel_id']])->select('hotel_name','hotel_phone','hotel_address','hotel_img')->first();
-        $data['type'] = HotelTypeModel::where(['type_id'=>$data['type_id']])->select('type_name')->first();
+        $data['hotel'] = HotelModel::where(['hotel_id'=>$data['horder']['hotel_id']])->select('hotel_id','hotel_name','hotel_phone','hotel_address','hotel_img')->first();
+        $data['type'] = HotelTypeModel::where(['type_id'=>$data['horder']['type_id']])->select('type_name')->first();
         if(!empty($data)){
             return $this->getBack('1','订单详情',$data);
         }else{
