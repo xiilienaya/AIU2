@@ -43,7 +43,7 @@ Route::post('yjDetail', 'PLController@yjDetail');   //获取单个个游记详�
 
 //前端调用 上传图片
 Route::post('imgUrl','indexController@imgUrl');
-Route::get('city','CityConteoller@city');
+Route::get('city','CityController@city');
 
 //前端调用 用户点赞状态  用户 点赞 游记接口
 Route::post('like', 'LikeController@like');
