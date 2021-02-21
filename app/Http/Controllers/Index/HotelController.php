@@ -246,9 +246,11 @@ class HotelController extends Controller
         }
 
         $horder = HorderModel::where(['horder_state'=>'1'])->select('horder_id','horder_state','horder_end')->get();
-        foreach ($horder as $key=>$value){
-            if(time() >=strtotime($value['horder_end'])){
-                HorderModel::where(['horder_id'=>$value['horder_id']])->update(['horder_state'=>'2']);
+        if($horder){
+            foreach ($horder as $key=>$value){
+                if(time() >=strtotime($value['horder_end'])){
+                    HorderModel::where(['horder_id'=>$value['horder_id']])->update(['horder_state'=>'2']);
+                }
             }
         }
 
