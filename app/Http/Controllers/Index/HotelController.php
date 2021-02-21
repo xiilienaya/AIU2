@@ -191,7 +191,7 @@ class HotelController extends Controller
             return $this->getBack('0','用户数据','');
         }
 
-        $horder = HorderModel::where(['user_id'=>$user_id])->select('horder_id','horder_start','horder_price','horder_number','horder_state')->get();
+        $horder = HorderModel::where(['user_id'=>$user_id])->select('horder_id','hotel_id','horder_start','horder_price','horder_number','horder_state')->get();
 
         if($horder){
             foreach ($horder as $key=>$value){
@@ -199,7 +199,7 @@ class HotelController extends Controller
                 $horder[$key]['hotel_name'] = $hotel_name['hotel_name'];
             }
 
-            return $this->getBack('1','OK',$hotel_name);
+            return $this->getBack('1','OK',$horder);
         }else{
             return $this->getBack('0','NO','');
         }
