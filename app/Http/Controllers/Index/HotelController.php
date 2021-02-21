@@ -79,7 +79,7 @@ class HotelController extends Controller
             return $this->getBack('0', '无此酒店', '');
         }
 
-        $hotel =HotelTypeModel::where(['hotel_id'=>$hotel_id])->first();
+        $hotel =HotelTypeModel::where(['hotel_id'=>$hotel_id])->get();
         return $this->getBack('1','OK',$hotel);
     }
 
