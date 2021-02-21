@@ -154,7 +154,7 @@ class PlaneController extends Controller
         if (empty($porder_id)){
             return $this->getBack('0', '无此订单', '');
         }
-        $porder = POrderModel::where(['porder_id'=>$porder_id])->first()->toArray();
+        $porder = POrderModel::where(['po_id'=>$porder_id])->first()->toArray();
         $plane = PlaneModel::where(['plane_id'=>$porder['plane_id']])->first();
         $porder['plane'] = $plane;
 
