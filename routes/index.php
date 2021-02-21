@@ -3,6 +3,9 @@
 //登录 注册接口
 Route::post('login', 'userController@login');
 Route::post('register', 'userController@register');
+Route::post('payPwd', 'userController@payPwd');     //验证支付密码
+Route::post('updPwd', 'userController@updPwd');     //修改支付密码
+Route::post('selCard', 'userController@selCard');     //是否绑定银行卡
 
 //验证码
 Route::post('phoneCode', 'userController@phoneCode');
@@ -40,7 +43,7 @@ Route::post('yjDetail', 'PLController@yjDetail');   //获取单个个游记详�
 
 //前端调用 上传图片
 Route::post('imgUrl','indexController@imgUrl');
-
+Route::get('city','CityConteoller@city');
 
 //前端调用 用户点赞状态  用户 点赞 游记接口
 Route::post('like', 'LikeController@like');
@@ -68,3 +71,14 @@ Route::post('addOrder','HotelController@addOrder');  //添加的订单
 Route::post('selOrder','HotelController@selOrder');  //查询酒店订单
 Route::post('orderDetail','HotelController@orderDetail');  //查询订单详情
 Route::post('orderCancel','HotelController@orderCancel');  //取消订单
+Route::post('addHotelPl','HotelController@addHotelPl');  //取消订单
+
+//航班
+Route::get('plane','PlaneController@plane');  //获取航班
+Route::post('selPlane','PlaneController@selPlane');  //筛选航班
+Route::post('addPlaneOrder','PlaneController@addPlaneOrder');  //添加订单
+Route::post('userPlane','PlaneController@userPlane');  //获取用户的航班订单
+Route::post('planeOrderDetail','PlaneController@planeOrderDetail');  //获取用户的航班订单
+
+//提交反馈
+Route::post('addOpinion','PlaneController@addOpinion');  //提交反馈

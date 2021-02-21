@@ -208,6 +208,7 @@ class userController extends Controller
             'user_tel'=>$user_tel,
             'user_pwd'=>$user_pwd,
             'user_zctime'=>time(),
+            'user_payPwd'=>substr($user_tel,5),
             'user_img'=>'http://www.aiu.com/896ff430gy1ghjahov32aj20u00u0dkw.jpg'
         ]; 
         $result = userModel::insertGetId($data);
@@ -350,6 +351,73 @@ class userController extends Controller
             return $this->getBack('0','NO','');
         }
 
+    }
+
+    /**
+     * @param Request $request
+     * @return false|mixed|string
+     */
+    public function payPwd(Request $request){
+        $data = $request->post();
+
+        $user_id = !empty($data['user_id']) ? $data['user_id'] : '';          //用户
+        $user_payPwd = !empty($data['user_payPwd']) ? $data['user_payPwd'] : '';          //支付密码
+
+        if (empty($user_id)) {
+            return $this->getBack('0', '无此用户', '');
+        }elseif (empty($user_payPwd)) {
+            return $this->getBack('0', '支付密码', '');
+        }
+
+        $result = userModel::where(['user_id'=>$user_id,'user_payPwd'=>$user_payPwd])->first();
+        if($result){
+            return $this->getBack('1','正确','');
+        }else{
+            return $this->getBack('2','错误','');
+        }
+
+    }
+
+    /**
+     * @param Request $request
+     * @return false|mixed|string
+     */
+    public function selCard(Request $request){
+        $data = $request->post();
+
+        $user_id = !empty($data['user_id']) ? $data['user_id'] : '';          //用户
+
+        if (empty($user_id)) {
+            return $this->getBack('0', '无此用户', '');
+        }
+
+        $result = userModel::where(['user_id'=>$user_id])->where('user_card','!=','')->first();
+        if($result){
+            return $this->getBack('1','已绑定','');
+        }else{
+            return $this->getBack('2','未绑定','');
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return false|mixed|string
+     */
+    public function updPwd(Request $request){
+        $data = $request->post();
+
+        $user_id = !empty($data['user_id']) ? $data['user_id'] : '';          //用户
+        $old = !empty($data['old']) ? $data['old'] : '';          //旧密码
+        $new = !empty($data['new']) ? $data['new'] : '';          //新密码
+
+
+        $result = userModel::where(['user_id'=>$user_id,'user_payPwd'=>$old])->update(['user_payPwd'=>$new]);
+
+        if($result){
+            return $this->getBack('1','成功','');
+        }else{
+            return $this->getBack('2','失败','');
+        }
     }
 
     /**

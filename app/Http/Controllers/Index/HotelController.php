@@ -254,11 +254,54 @@ class HotelController extends Controller
 
         $horder = HorderModel::where(['horder_id'=>$horder_id,'horder_num'=>'1','horder_state'=>'1'])->update(['horder_state'=>$horder_state]);
         if($horder){
-            return $this->getBack('1','订单详情',$horder);
+            return $this->getBack('1','取消成功',‘’);
         }else{
             return $this->getBack('0','NO','');
         }
     }
 
+    /**
+     * @param Request $request
+     * @return false|mixed|string
+     */
+    public function addHotelPl(Request $request){
+        $data = $request->post();
+
+        $hotel_id = !empty($data['hotel_id']) ? $data['hotel_id'] : '';                  //酒店id
+        $hpl_content = !empty($data['hpl_content']) ? $data['hpl_content'] : '';                  //评论内容
+        $hpl_rate = !empty($data['hpl_rate']) ? $data['hpl_rate'] : '';                  //评分
+        $hpl_time = !empty($data['hpl_time']) ? $data['hpl_time'] : '';                  //发表时间
+        $user_id = empty($data['user_id'])?'':$data['user_id'];                         //用户id
+
+
+        if (empty($hotel_id)) {
+            return $this->getBack('0', '无此酒店', '');
+        }elseif (empty($hpl_content)){
+            return $this->getBack('0', '评论内容', '');
+        }elseif (empty($user_id)){
+            return $this->getBack('0', '用户id', '');
+        }elseif (empty($hpl_time)){
+            return $this->getBack('0', '发表时间', '');
+        }elseif (empty($hpl_rate)){
+            return $this->getBack('0', '评分', '');
+        }
+
+        $data = [
+            'user_id' => $user_id,
+            'hotel_id' => $hotel_id,
+            'hpl_content' => $hpl_content,
+            'hpl_rate' => $hpl_rate,
+            'hpl_time' => $hpl_time,
+        ];
+
+        $result = HotelPlModel::insertGetId($data);
+
+        if($result){
+            return $this->getBack('1','评论成功!',$result);
+        }else{
+            return $this->getBack('2','评论失败','');
+        }
+
+    }
 
 }
