@@ -47,9 +47,9 @@ class HotelController extends Controller
         }else if(empty($price)&&!empty($where)){
             $hotel = HotelModel::select('hotel_id','hotel_name','hotel_rate','hotel_address','hotel_tag','hotel_img','hotel_price')->where($where)->get();
         }else if(!empty($price)&&empty($where)){
-            $hotel = HotelModel::select('hotel_id','hotel_name','hotel_rate','hotel_address','hotel_tag','hotel_img','hotel_price')->whereBetween('hotel_city',$price)->get();
+            $hotel = HotelModel::select('hotel_id','hotel_name','hotel_rate','hotel_address','hotel_tag','hotel_img','hotel_price')->whereBetween('hotel_price',$price)->get();
         }else{
-            $hotel = HotelModel::select('hotel_id','hotel_name','hotel_rate','hotel_address','hotel_tag','hotel_img','hotel_price')->where($where)->whereBetween('hotel_city',$price)->get();
+            $hotel = HotelModel::select('hotel_id','hotel_name','hotel_rate','hotel_address','hotel_tag','hotel_img','hotel_price')->where($where)->whereBetween('hotel_price',$price)->get();
         }
 
         return $this->getBack('1','OK',$hotel);
