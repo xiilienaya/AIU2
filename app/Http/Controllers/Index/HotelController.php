@@ -219,8 +219,8 @@ class HotelController extends Controller
             return $this->getBack('0','订单错误','');
         }
 
-        $horder = HorderModel::where(['horder_id'=>$horder_id])->first();
-        $hotel = HotelModel::where(['hote_id'=>$horder->hotel_id])->first();
+        $horder = HorderModel::where(['horder_id'=>$horder_id])->first()->toArray();
+        $hotel = HotelModel::where(['hote_id'=>$horder['hotel_id']])->select('hotel_name','hotel_phone','hotel_address','type_name','hotel_img')->first();
         $horder = array_merge($horder,$hotel);
         if($horder){
             return $this->getBack('1','订单详情',$horder);
