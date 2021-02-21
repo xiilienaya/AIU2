@@ -63,8 +63,8 @@ Route::get('hotelList','HotelController@hotelList');    //获取全部酒店信�
 Route::post('hotelSel','HotelController@hotelSel');  //标签筛选酒店列表
 Route::post('hotelDetail','HotelController@hotelDetail');  //取酒店详情
 Route::post('hotelType','HotelController@hotelType');  //取酒店类型
-Route::post('hotelPl','HController@hotelPl');  //取酒店评论
-Route::post('addOrder','HController@addOrder');  //添加的订单
-Route::post('selOrder','HController@selOrder');  //查询酒店订单
-Route::post('orderDetail','HController@orderDetail');  //查询订单详情
-Route::post('orderCancel','HController@orderCancel');  //取消订单
+Route::post('hotelPl','HotelController@hotelPl');  //取酒店评论
+Route::post('addOrder','HotelController@addOrder');  //添加的订单
+Route::post('selOrder','HotelController@selOrder');  //查询酒店订单
+Route::post('orderDetail','HotelController@orderDetail');  //查询订单详情
+Route::post('orderCancel','HotelController@orderCancel');  //取消订单
