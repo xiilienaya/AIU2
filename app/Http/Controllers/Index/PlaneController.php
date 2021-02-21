@@ -46,7 +46,7 @@ class PlaneController extends Controller
         $where=[
             'plane_go'=>$plane_go,
             'plane_des'=>$plane_des,
-            'plane_data'=>$plane_date,
+            'plane_date'=>$plane_date,
         ];
 
 
