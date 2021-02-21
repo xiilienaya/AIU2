@@ -220,6 +220,8 @@ class HotelController extends Controller
         }
 
         $horder = HorderModel::where(['horder_id'=>$horder_id])->first();
+        $hotel = HotelModel::where(['hote_id'=>$horder->hotel_id])->first();
+        $horder = array_merge($horder,$hotel);
         if($horder){
             return $this->getBack('1','订单详情',$horder);
         }else{
