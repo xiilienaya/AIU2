@@ -137,7 +137,7 @@ class PlaneController extends Controller
         $result = POrderModel::where(['user_id'=>$user_id])->get();
 
         foreach($result as $key=>$value){
-            $result['plane'] = PlaneModel::where(['plane_id'=>$value['plane_id']])->select('plane_name','plane_start','plane_end','plane_date')->first();
+            $result[$key]['plane'] = PlaneModel::where(['plane_id'=>$value['plane_id']])->select('plane_name','plane_start','plane_end','plane_date')->first();
         }
 
         if($result){
