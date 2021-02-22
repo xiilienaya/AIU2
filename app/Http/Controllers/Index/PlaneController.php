@@ -199,4 +199,21 @@ class PlaneController extends Controller
             return $this->getBack('2','提交失败','');
         }
     }
+
+    public function planeDetail(Request $request){
+        $data = $request->post();
+
+        $plane_id = !empty($data['plane_id']) ? $data['plane_id'] : '';
+        if (empty($plane_id)){
+            return $this->getBack('0', '航班id', '');
+        }
+
+        $plane = PlaneModel::where(['plane_id'=>$plane_id])->first();
+        if($plane){
+            return $this->getBack('1','获取成功',$plane);
+        }else{
+            return $this->getBack('0','获取失败','');
+        }
+
+    }
 }

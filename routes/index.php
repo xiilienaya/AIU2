@@ -79,6 +79,7 @@ Route::post('selPlane','PlaneController@selPlane');  //筛选航班
 Route::post('addPlaneOrder','PlaneController@addPlaneOrder');  //添加订单
 Route::post('userPlane','PlaneController@userPlane');  //获取用户的航班订单
 Route::post('planeOrderDetail','PlaneController@planeOrderDetail');  //获取用户的航班订单
+Route::post('planeDetail','PlaneController@planeDetail');  //获取用户的航班订单
 
 //提交反馈
 Route::post('addOpinion','PlaneController@addOpinion');  //提交反馈
