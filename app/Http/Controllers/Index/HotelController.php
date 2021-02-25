@@ -191,6 +191,15 @@ class HotelController extends Controller
             return $this->getBack('0','用户数据','');
         }
 
+        $horder = HorderModel::where(['horder_state'=>'1'])->select('horder_id','horder_state','horder_end')->get();
+        if($horder){
+            foreach ($horder as $key=>$value){
+                if(time() >=strtotime($value['horder_end'])){
+                    HorderModel::where(['horder_id'=>$value['horder_id']])->update(['horder_state'=>'2']);
+                }
+            }
+        }
+
         $horder = HorderModel::where(['user_id'=>$user_id])->select('horder_id','hotel_id','horder_start','horder_price','horder_number','horder_state')->get();
 
         if($horder){
@@ -243,15 +252,6 @@ class HotelController extends Controller
 
         if(empty($horder_id)){
             return $this->getBack('0','订单错误','');
-        }
-
-        $horder = HorderModel::where(['horder_state'=>'1'])->select('horder_id','horder_state','horder_end')->get();
-        if($horder){
-            foreach ($horder as $key=>$value){
-                if(time() >=strtotime($value['horder_end'])){
-                    HorderModel::where(['horder_id'=>$value['horder_id']])->update(['horder_state'=>'2']);
-                }
-            }
         }
 
         $horder = HorderModel::where(['horder_id'=>$horder_id,'horder_num'=>'1','horder_state'=>'1'])->update(['horder_state'=>$horder_state]);
