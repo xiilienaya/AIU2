@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Index;
 
+use App\Model\CityTModel;
 use App\Model\CollectModel;
+use App\Model\CountryModel;
 use App\Model\FansModel;
 use App\Model\LikeModel;
+use App\Model\SpotModel;
 use App\Model\UserModel;
 use App\Model\YouJiModel;
 use Illuminate\Http\Request;
@@ -12,6 +15,31 @@ use App\Http\Controllers\Controller;
 
 class userController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return false|mixed|string
+     */
+    public function select(Request $request){
+        $data = $request->post();
+
+        $name = !empty($data['name']) ? $data['name'] : '';                //目的地不能为空
+        $arr =[];
+        if(empty($name)){
+            $city  = CityTModel::get(); //城市
+            $spot = SpotModel::get();
+            $country = CountryModel::get(); //
+        }else{
+            $city  = CityTModel::where('name','like','%'.$name.'%')->get(); //城市
+            $spot = SpotModel::where('name','like',''.$name.'%')->get();    //
+            $country = CountryModel::where('name','like','%'.$name.'%')->get(); //
+        }
+
+        $arr['city'] = empty($city) ? array():$city->toArray();
+        $arr['spot'] = empty($spot) ? array():$spot->toArray();
+        $arr['country'] = empty($country) ? array():$country->toArray();
+
+        return $this->getBack('1','数据返回',$arr);
+    }
 
     public function destination(Request $request){
         $data = $request->post();

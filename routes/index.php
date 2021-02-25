@@ -7,6 +7,8 @@ Route::post('payPwd', 'userController@payPwd');     //验证支付密码
 Route::post('updPwd', 'userController@updPwd');     //修改支付密码
 Route::post('selCard', 'userController@selCard');     //是否绑定银行卡
 
+Route::post('select', 'userController@select');     //从country，city，spot三个表中查询出与name有关的数据(模糊查询)
+
 //验证码
 Route::post('phoneCode', 'userController@phoneCode');
 
