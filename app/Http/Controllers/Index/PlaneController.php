@@ -134,10 +134,10 @@ class PlaneController extends Controller
             return $this->getBack('0', '无此用户', '');
         }
 
-        $plane = POrderModel::where(['horder_state'=>'1'])->select('po_id','po_state','po_time')->get();
+        $plane = POrderModel::where(['po_state'=>'1'])->select('po_id','po_state','po_time')->get();
         if($plane){
             foreach ($plane as $key=>$value){
-                if(time() >=strtotime($value['po_time'])){
+                if(time() > strtotime($value['po_time'])){
                     POrderModel::where(['po_id'=>$value['po_id']])->update(['po_state'=>'2']);
                 }
             }
