@@ -30,7 +30,7 @@ class IndexController extends Controller
 
             //列表数组
             foreach ($file as $k=>$value){
-                $arr[$k] = $this->imgList($name,$value);
+                $arr[$k] = $this->imgList($name,$k,$value);
             }
             return $this->getBack('1','返回成功',$arr);
         }else if($status == '3'){
@@ -68,7 +68,7 @@ class IndexController extends Controller
         }
     }
 
-    public function imgList($name,$file){
+    public function imgList($name,$k,$file){
         $up_dir = base_path()."/public/upload/".$name;
         if (!is_dir($up_dir)) {
             mkdir($up_dir, 0777, true);
@@ -76,7 +76,7 @@ class IndexController extends Controller
         if(preg_match('/^(data:\s*image\/(\w+);base64,)/', $file, $result)){
             $type = $result[2];
             if(in_array($type,array('pjpeg','jpeg','jpg','gif','bmp','png'))){
-                $new = date('YmdHis').'.'.$type;
+                $new = $k.date('YmdHis').'.'.$type;
                 $new_file = $up_dir.$new;
                 if(file_put_contents($new_file, base64_decode(str_replace($result[1], '', $file)))){
                     str_replace('', '', $new_file);
