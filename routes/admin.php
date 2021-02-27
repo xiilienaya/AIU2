@@ -1,20 +1,33 @@
 <?php
+//用户
+Route::get("/user","userController@index");
+Route::post("/userAdmin","userController@update");
+Route::post("/delUser","userController@delete");
 
+//游记
+Route::post("/youJi","YouJiController@index");
+Route::post("/youJiUpd","YouJiController@update");
 
-// Route::get('/', function () {
-//     return view('welcome'); 
-// });
+//国家
+Route::get("/country","CountryController@index");
+Route::post("/countryDel","CountryController@delete");
+Route::post("/countryUpd","CountryController@update");
 
-//登录页面
-Route::any('admin', 'adminController@admin');
-//登录页面
-Route::any('login', 'adminController@login');
+//城市
+Route::get("/city","CountryController@city");
+Route::post("/cityDel","CountryController@cityDel");
+Route::post("/cityUpd","CountryController@cityUpd");
 
-//图片上传jpg
-//Route::any('uploadImg', 'adminController@uploadImg');
+//景点
+Route::get("/spot","SpotController@index");
+Route::post("/spotDel","SpotController@delete");
+Route::post("/spotUpd","SpotController@update");
+Route::post("/spotT","SpotController@spotT");
 
-Route::resource("/user","userController");
+Route::get("/hotel","SpotController@index");
+Route::post("/hotelDel","SpotController@hotelDel");
+Route::post("/hotelUpd","SpotController@hotelUpd");
 
-Route::resource("/youJi","YouJiSlideController");
-
-//Route::resource("/slide","Index\AdminSlideController");
+Route::post("/planeDetail","SpotController@planeDetail");
+Route::post("/planeDel","SpotController@planeDel");
+Route::post("/planeUpd","SpotController@planeUpd");

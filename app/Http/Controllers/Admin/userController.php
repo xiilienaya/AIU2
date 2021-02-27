@@ -8,80 +8,52 @@ use App\Http\Controllers\Controller;
 
 class userController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
+
+    public function index(){
         $user = userModel::orderBy('user_zctime', 'desc')->get();
-        return view('admin.User.UserList',['data'=>$user]);
+        return  $this->getBack('1','OK',$user);
+    }
+    
+    public function delete(Request $request){
+        $data = $request->post();
+
+        $user_id = !empty($data['user_id']) ? $data['user_id'] : '';          //城市id
+        if (empty($user_id)) {
+            return $this->getBack('0', 'user_id', '');
+        }
+
+
+        $result = UserModel::where(['user_id'=>$user_id])->delte();
+        if($result){
+            return $this->getBack('1', '删除成功', '');
+        }else{
+            return $this->getBack('0', '删除失败', '');
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    public function update(Request $request){
+        $data = $request->post();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $user_id = !empty($data['user_id']) ? $data['user_id'] : '';          //城市id
+        if (empty($user_id)) {
+            return $this->getBack('0', 'user_id', '');
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        $admin_id = userModel::where(['user_id'=>$user_id])->first();
+        if($admin_id['admin_id']=='2'){
+            $admin_id = '1';
+        }else{
+            $admin_id = '2';
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        $result = UserModel::where(['user_id'=>$user_id])->update(['user_admin'=>$admin_id]);
+        if($result){
+            return $this->getBack('1', '成功', '');
+        }else{
+            return $this->getBack('0', '失败', '');
+        }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        var_dump($id);
     }
 }
+
+

@@ -2,84 +2,37 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\YouJiModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class YouJiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
-
+    public function index(){
+        $data = YouJiModel::get();
+        return $this->getBack('1','OK',$data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    public function update(Request $request){
+        $data = $request->post();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $yj_id = !empty($data['yj_id']) ? $data['yj_id'] : '';          //
+        if (empty($yj_id)) {
+            return $this->getBack('0', 'yj_id', '');
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        $is_tj = YouJiModel::where(['yj_id'=>$yj_id])->first();
+        if($is_tj['is_tj']=='2'){
+            $is_tj = '1';
+        }else{
+            $is_tj = '2';
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $result = YouJiModel::where(['yj_id'=>$yj_id])->update(['is_tj'=>$is_tj]);
+        if($result){
+            return $this->getBack('1', '成功', '');
+        }else{
+            return $this->getBack('0', '失败', '');
+        }
     }
 }
