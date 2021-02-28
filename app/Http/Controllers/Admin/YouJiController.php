@@ -22,6 +22,8 @@ class YouJiController extends Controller
         }
 
         $is_tj = YouJiModel::where(['yj_id'=>$yj_id])->first();
+        $is_tj = empty($is_tj) ? array():$is_tj->toArray();
+
         if($is_tj['is_tj']=='2'){
             $is_tj = '1';
         }else{

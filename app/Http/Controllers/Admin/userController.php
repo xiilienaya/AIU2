@@ -23,7 +23,7 @@ class userController extends Controller
         }
 
 
-        $result = UserModel::where(['user_id'=>$user_id])->delte();
+        $result = UserModel::where(['user_id'=>$user_id])->delete();
         if($result){
             return $this->getBack('1', '删除成功', '');
         }else{
@@ -40,6 +40,7 @@ class userController extends Controller
         }
 
         $admin_id = userModel::where(['user_id'=>$user_id])->first();
+        $admin_id = empty($admin_id) ? array():$admin_id->toArray();
         if($admin_id['admin_id']=='2'){
             $admin_id = '1';
         }else{
