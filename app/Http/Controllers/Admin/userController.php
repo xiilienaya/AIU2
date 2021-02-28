@@ -41,7 +41,7 @@ class userController extends Controller
 
         $admin_id = userModel::where(['user_id'=>$user_id])->first();
         $admin_id = empty($admin_id) ? array():$admin_id->toArray();
-        if($admin_id['admin_id']=='2'){
+        if($admin_id['user_admin']=='2'){
             $admin_id = '1';
         }else{
             $admin_id = '2';
