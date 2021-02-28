@@ -24,7 +24,7 @@ Route::post("/spotDel","SpotController@delete");
 Route::post("/spotUpd","SpotController@update");
 Route::post("/spotT","SpotController@spotT");
 
-Route::get("/hotel","SpotController@index");
+Route::get("/hotel","SpotController@hotel");
 Route::post("/hotelDel","SpotController@hotelDel");
 Route::post("/hotelUpd","SpotController@hotelUpd");
 
