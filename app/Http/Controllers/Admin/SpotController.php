@@ -258,7 +258,7 @@ class SpotController extends Controller
         }
     }
 
-    public function planeUpe(Request $request){
+    public function planeUpd(Request $request){
         $data = $request->post();
 
         $plane_id = !empty($data['plane_id']) ? $data['plane_id'] : '';          //城市id
