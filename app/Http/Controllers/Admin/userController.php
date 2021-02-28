@@ -55,6 +55,35 @@ class userController extends Controller
         }
 
     }
+
+    public function adminList(){
+        $user = userModel::where(['user_admin'=>'1'])->orderBy('user_zctime', 'desc')->get();
+        return  $this->getBack('1','OK',$user);
+    }
+
+    public function userSex(Request $request){
+        $data = $request->post();
+
+        $user_sex = !empty($data['user_sex']) ? $data['user_sex'] : '';          //城市id
+        if (empty($user_sex)) {
+            return $this->getBack('0', 'user_sex', '');
+        }
+
+        $user = userModel::where(['user_sex'=>$user_sex])->orderBy('user_zctime', 'desc')->get();
+        return  $this->getBack('1','OK',$user);
+    }
+
+    public function userString(Request $request){
+        $data = $request->post();
+
+        $string = !empty($data['string']) ? $data['string'] : '';          //城市id
+        if (empty($string)) {
+            return $this->getBack('0', 'string', '');
+        }
+
+        $user = userModel::where('name','like','%'.$string.'%')->orderBy('user_zctime', 'desc')->get();
+        return  $this->getBack('1','OK',$user);
+    }
 }
 
 

@@ -4,6 +4,10 @@ Route::get("/user","userController@index");
 Route::post("/userAdmin","userController@update");
 Route::post("/delUser","userController@delete");
 
+Route::get("/adminList","userController@adminList");
+Route::post("/userSex","userController@userSex");
+Route::post("/userString","userController@userString");
+
 //游记
 Route::get("/youJi","YouJiController@index");
 Route::post("/youJiUpd","YouJiController@update");

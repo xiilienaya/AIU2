@@ -99,12 +99,19 @@ class SpotController extends Controller
             return $this->getBack('0', 'spot_id', '');
         }
 
+        $spot_status = SpotModel::where(['spot_id'=>$spot_id])->first();
+        $spot_status = empty($spot_status) ? array():$spot_status->toArray();
+        if($spot_status['spot_status']=='2'){
+            $spot_status = '1';
+        }else{
+            $spot_status = '2';
+        }
 
-        $result = SpotModel::where(['spot_id'=>$spot_id])->update(['spot_status'=>'1']);
+        $result = SpotModel::where(['spot_id'=>$spot_id])->update(['spot_status'=>$spot_status]);
         if($result){
             return $this->getBack('1', '成功', '');
         }else{
-            return $this->getBack('0', '失败', '');
+            return $this->getBack('3', '失败', '');
         }
     }
 
