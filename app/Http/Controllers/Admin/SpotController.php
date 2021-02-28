@@ -24,7 +24,7 @@ class SpotController extends Controller
         }
 
 
-        $result = SpotModel::where(['spot_id'=>$spot_id])->delte();
+        $result = SpotModel::where(['spot_id'=>$spot_id])->delete();
         if($result){
             return $this->getBack('1', '删除成功', '');
         }else{
@@ -122,7 +122,7 @@ class SpotController extends Controller
         }
 
 
-        $result = HotelModel::where(['hotel_id'=>$hotel_id])->delte();
+        $result = HotelModel::where(['hotel_id'=>$hotel_id])->delete();
         if($result){
             return $this->getBack('1', '删除成功', '');
         }else{
@@ -243,7 +243,7 @@ class SpotController extends Controller
         }
 
 
-        $result = PlaneModel::where(['plane_id'=>$plane_id])->delte();
+        $result = PlaneModel::where(['plane_id'=>$plane_id])->delete();
         if($result){
             return $this->getBack('1', '删除成功', '');
         }else{
