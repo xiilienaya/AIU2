@@ -5,7 +5,7 @@ Route::post("/userAdmin","userController@update");
 Route::post("/delUser","userController@delete");
 
 //游记
-Route::post("/youJi","YouJiController@index");
+Route::get("/youJi","YouJiController@index");
 Route::post("/youJiUpd","YouJiController@update");
 
 //国家
