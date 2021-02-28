@@ -23,7 +23,7 @@ class CountryController extends Controller
         }
 
 
-        $result = CountryModel::where(['country_id'=>$country_id])->delte();
+        $result = CountryModel::where(['country_id'=>$country_id])->delete();
         if($result){
             return $this->getBack('1', '删除成功', '');
         }else{
@@ -103,7 +103,7 @@ class CountryController extends Controller
             return $this->getBack('0', 'city_id', '');
         }
 
-        $result = CityTModel::where(['city_id'=>$city_id])->delte();
+        $result = CityTModel::where(['city_id'=>$city_id])->delete();
         if($result){
             return $this->getBack('1', '删除成功', '');
         }else{
