@@ -40,7 +40,7 @@ class CountryController extends Controller
         $country_ename = !empty($data['country_ename']) ? $data['country_ename'] : '';          //城市id
         $country_imgList = !empty($data['country_imgList']) ? $data['country_imgList'] : '';          //城市id
         $country_summary = !empty($data['country_summary']) ? $data['country_summary'] : '';          //城市id
-        $country_traffice = !empty($data['country_traffice']) ? $data['country_traffice'] : '';          //城市id
+        $country_traffic = !empty($data['country_traffic']) ? $data['country_traffic'] : '';          //城市id
         $country_lyTime = !empty($data['country_lyTime']) ? $data['country_lyTime'] : '';          //城市id
         $country_tips = !empty($data['country_tips']) ? $data['country_tips'] : '';          //城市id
         $country_zhuyi = !empty($data['country_zhuyi']) ? $data['country_zhuyi'] : '';          //城市id
@@ -56,8 +56,8 @@ class CountryController extends Controller
             return $this->getBack('0', 'country_imgList', '');
         }elseif (empty($country_summary)) {
             return $this->getBack('0', 'country_summary', '');
-        }elseif (empty($country_traffice)) {
-            return $this->getBack('0', 'country_traffice', '');
+        }elseif (empty($country_traffic)) {
+            return $this->getBack('0', 'country_traffic', '');
         }elseif (empty($country_lyTime)) {
             return $this->getBack('0', 'country_lyTime', '');
         }elseif (empty($country_tips)) {
@@ -72,7 +72,7 @@ class CountryController extends Controller
             'country_name' => $country_name,
             'country_imgList' => $country_imgList,
             'country_summary' => $country_summary,
-            'country_traffice' => $country_traffice,
+            'country_traffic' => $country_traffic,
             'country_lyTime' => $country_lyTime,
             'country_tips' => $country_tips,
             'country_zhuyi' => $country_zhuyi,
