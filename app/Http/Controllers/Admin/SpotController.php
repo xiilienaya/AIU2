@@ -58,6 +58,7 @@ class SpotController extends Controller
         $spot_name = !empty($data['spot_name']) ? $data['spot_name'] : '';          //城市id
         $spot_ename = !empty($data['spot_ename']) ? $data['spot_ename'] : '';          //城市id
         $spot_imgList = !empty($data['spot_imgList']) ? $data['spot_imgList'] : '';          //城市id
+        $spot_img = !empty($data['spot_img']) ? $data['spot_img'] : '';          //城市id
         $spot_summary = !empty($data['spot_summary']) ? $data['spot_summary'] : '';          //城市id
         $spot_jianjie = !empty($data['spot_jianjie']) ? $data['spot_jianjie'] : '';          //城市id
         $spot_tips = !empty($data['spot_tips']) ? $data['spot_tips'] : '';          //城市id
@@ -73,6 +74,8 @@ class SpotController extends Controller
             return $this->getBack('0', 'spot_ename', '');
         }elseif (empty($spot_imgList)) {
             return $this->getBack('0', 'spot_imgList', '');
+        }elseif (empty($spot_img)) {
+            return $this->getBack('0', 'spot_img', '');
         }elseif (empty($spot_summary)) {
             return $this->getBack('0', 'spot_summary', '');
         }elseif (empty($spot_jianjie)) {
@@ -94,6 +97,7 @@ class SpotController extends Controller
             'spot_jianjie' => $spot_jianjie,
             'spot_tips' => $spot_tips,
             'spot_ticket' => $spot_ticket,
+            'spot_img' => $spot_img,
             'spot_rate' => $spot_rate,
         ];
 
