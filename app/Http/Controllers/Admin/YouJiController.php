@@ -37,4 +37,20 @@ class YouJiController extends Controller
             return $this->getBack('0', '失败', '');
         }
     }
+
+    public function delete(Request $request){
+        $data = $request->post();
+
+        $yj_id = !empty($data['yj_id']) ? $data['yj_id'] : '';          //
+        if (empty($yj_id)) {
+            return $this->getBack('0', 'yj_id', '');
+        }
+
+        $result = YouJiModel::where(['yj_id'=>$yj_id])->delete();
+        if($result){
+            return $this->getBack('1', '删除成功', '');
+        }else{
+            return $this->getBack('0', '删除失败', '');
+        }
+    }
 }

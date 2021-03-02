@@ -11,6 +11,7 @@ Route::post("/userString","userController@userString");
 //游记
 Route::get("/youJi","YouJiController@index");
 Route::post("/youJiUpd","YouJiController@update");
+Route::post("/youJiDel","YouJiController@delete");
 
 //国家
 Route::get("/country","CountryController@index");
@@ -26,6 +27,7 @@ Route::post("/cityUpd","CountryController@cityUpd");
 Route::get("/spot","SpotController@index");
 Route::post("/spotDel","SpotController@delete");
 Route::post("/spotUpd","SpotController@update");
+Route::post("/spotDetail","SpotController@spotDetail");
 Route::post("/spotT","SpotController@spotT");
 
 Route::get("/hotel","SpotController@hotel");

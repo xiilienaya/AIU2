@@ -84,9 +84,12 @@ class CountryController extends Controller
 
         $result = CountryModel::where(['country_id'=>$country_id])->update($data);
         if($result){
-            return $this->getBack('1', '修改成功', '');
+            $country_huobi = CountryModel::where(['country_id'=>$country_id])->first();
+            $country_huobi = empty($country_huobi) ? array():$country_huobi->toArray();
+            $country_huobi = !empty($country_huobi['country_huobi']) ? $country_huobi['country_huobi'] : '';
+            return $this->getBack('1', '修改成功', $country_huobi);
         }else{
-            return $this->getBack('0', '修改失败', '');
+            return $this->getBack('0', '修改失败', $country_huobi);
         }
     }
 

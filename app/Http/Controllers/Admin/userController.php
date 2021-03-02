@@ -81,7 +81,7 @@ class userController extends Controller
             return $this->getBack('0', 'string', '');
         }
 
-        $user = userModel::where('name','like','%'.$string.'%')->orderBy('user_zctime', 'desc')->get();
+        $user = userModel::where('user_name','like','%'.$string.'%')->orderBy('user_zctime', 'desc')->get();
         return  $this->getBack('1','OK',$user);
     }
 }

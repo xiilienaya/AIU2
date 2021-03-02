@@ -47,7 +47,7 @@ class SpotController extends Controller
         $where = ['spot_id'=>$spot_id,'spot_status'=>'1'];
 
 
-        $spot = SpotModel::where($where)->get();
+        $spot = SpotModel::where(['spot_id'=>$spot_id])->first();
         if($spot){
             return $this->getBack('1','OK',$spot);
         }else{

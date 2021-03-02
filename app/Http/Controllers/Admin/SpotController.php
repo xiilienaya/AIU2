@@ -32,6 +32,24 @@ class SpotController extends Controller
         }
     }
 
+    public function spotDetail(Request $request){
+        $data = $request->post();
+
+        $spot_id = !empty($data['spot_id']) ? $data['spot_id'] : '';          //景点id
+
+        if (empty($spot_id)) {
+            return $this->getBack('0', '景点id', '');
+        }
+
+
+        $spot = SpotModel::where(['spot_id'=>$spot_id])->first();
+        if($spot){
+            return $this->getBack('1','OK',$spot);
+        }else{
+            return $this->getBack('0','NO','');
+        }
+    }
+
     public function update(Request $request){
         $data = $request->post();
 
@@ -61,8 +79,6 @@ class SpotController extends Controller
             return $this->getBack('0', 'spot_jianjie', '');
         }elseif (empty($spot_tips)) {
             return $this->getBack('0', 'spot_tips', '');
-        }elseif (empty($spot_zhuyi)) {
-            return $this->getBack('0', 'spot_zhuyi', '');
         }elseif (empty($spot_ticket)) {
             return $this->getBack('0', 'spot_ticket', '');
         }elseif (empty($spot_rate)) {
@@ -77,7 +93,6 @@ class SpotController extends Controller
             'spot_summary' => $spot_summary,
             'spot_jianjie' => $spot_jianjie,
             'spot_tips' => $spot_tips,
-            'spot_zhuyi' => $spot_zhuyi,
             'spot_ticket' => $spot_ticket,
             'spot_rate' => $spot_rate,
         ];
@@ -136,6 +151,7 @@ class SpotController extends Controller
             return $this->getBack('0', '删除失败', '');
         }
     }
+
 
     public function hotelUpd(Request $request){
         $data = $request->post();
@@ -218,9 +234,12 @@ class SpotController extends Controller
 
         $result = HotelModel::where(['hotel_id'=>$hotel_id])->update($data);
         if($result){
-            return $this->getBack('1', '修改成功', '');
+            $hotel_address = HotelModel::where(['hotel_id'=>$hotel_id])->first();
+            $hotel_address = empty($hotel_address) ? array():$hotel_address->toArray();
+            $hotel_address = !empty($hotel_address['hotel_address']) ? $hotel_address['hotel_address'] : '';
+            return $this->getBack('1', '修改成功', $hotel_address);
         }else{
-            return $this->getBack('0', '修改失败', '');
+            return $this->getBack('0', '修改失败', $hotel_address);
         }
     }
 
@@ -269,7 +288,7 @@ class SpotController extends Controller
         $plane_des = !empty($data['plane_des']) ? $data['plane_des'] : '';          //城市id
         $plane_start = !empty($data['plane_start']) ? $data['plane_start'] : '';          //城市id
         $plane_end = !empty($data['plane_end']) ? $data['plane_end'] : '';          //城市id
-        $plane_food = !empty($data['plane_food']) ? $data['plane_food'] : '';          //城市id
+        $plane_food = !empty($data['pluserStringane_food']) ? $data['plane_food'] : '';          //城市id
         $plane_price = !empty($data['plane_price']) ? $data['plane_price'] : '';          //城市id
         $plane_jingji = !empty($data['plane_jingji']) ? $data['plane_jingji'] : '';          //城市id
         $plane_shangwu = !empty($data['plane_shangwu']) ? $data['plane_shangwu'] : '';          //城市id
