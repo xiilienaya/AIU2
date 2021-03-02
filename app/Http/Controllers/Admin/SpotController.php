@@ -230,8 +230,7 @@ class SpotController extends Controller
             'hotel_phone' => $hotel_phone,
         ];
 
-        $result = HotelModel::where(['hotel_id'=>$hotel_id])->update($data);
-        var_dump($result);exit;
+        $result = HotelModel::where(['hotel_id'=>$hotel_id])->update($data); 
         if($result){
             return $this->getBack('1', '修改成功', '');
         }else{
