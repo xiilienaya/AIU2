@@ -64,8 +64,6 @@ class CountryController extends Controller
             return $this->getBack('0', 'country_tips', '');
         }elseif (empty($country_zhuyi)) {
             return $this->getBack('0', 'country_zhuyi', '');
-        }elseif (empty($country_huobi)) {
-            return $this->getBack('0', 'country_huobi', '');
         }
 
         $data=[
@@ -78,18 +76,14 @@ class CountryController extends Controller
             'country_lyTime' => $country_lyTime,
             'country_tips' => $country_tips,
             'country_zhuyi' => $country_zhuyi,
-            'country_huobi' => $country_huobi,
         ];
 
 
         $result = CountryModel::where(['country_id'=>$country_id])->update($data);
         if($result){
-            $country_huobi = CountryModel::where(['country_id'=>$country_id])->first();
-            $country_huobi = empty($country_huobi) ? array():$country_huobi->toArray();
-            $country_huobi = !empty($country_huobi['country_huobi']) ? $country_huobi['country_huobi'] : '';
-            return $this->getBack('1', '修改成功', $country_huobi);
+            return $this->getBack('1', '修改成功', '');
         }else{
-            return $this->getBack('0', '修改失败', $country_huobi);
+            return $this->getBack('0', '修改失败', '');
         }
     }
 

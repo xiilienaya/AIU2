@@ -187,8 +187,6 @@ class SpotController extends Controller
             return $this->getBack('0', 'hotel_rate', '');
         }elseif (empty($hotel_img)) {
             return $this->getBack('0', 'hotel_img', '');
-        }elseif (empty($hotel_address)) {
-            return $this->getBack('0', 'hotel_address', '');
         }elseif (empty($hotel_imgList)) {
             return $this->getBack('0', 'hotel_imgList', '');
         }elseif (empty($hotel_jianjie)) {
@@ -219,7 +217,6 @@ class SpotController extends Controller
             'hotel_tag' => $hotel_tag,
             'hotel_rate' => $hotel_rate,
             'hotel_img' => $hotel_img,
-            'hotel_address' => $hotel_address,
             'hotel_imgList' => $hotel_imgList,
             'hotel_jianjie' => $hotel_jianjie,
             'hotel_yule' => $hotel_yule,
@@ -234,12 +231,9 @@ class SpotController extends Controller
 
         $result = HotelModel::where(['hotel_id'=>$hotel_id])->update($data);
         if($result){
-            $hotel_address = HotelModel::where(['hotel_id'=>$hotel_id])->first();
-            $hotel_address = empty($hotel_address) ? array():$hotel_address->toArray();
-            $hotel_address = !empty($hotel_address['hotel_address']) ? $hotel_address['hotel_address'] : '';
-            return $this->getBack('1', '修改成功', $hotel_address);
+            return $this->getBack('1', '修改成功', '');
         }else{
-            return $this->getBack('0', '修改失败', $hotel_address);
+            return $this->getBack('0', '修改失败', '');
         }
     }
 
