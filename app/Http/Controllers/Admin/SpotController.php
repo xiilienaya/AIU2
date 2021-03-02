@@ -231,6 +231,7 @@ class SpotController extends Controller
         ];
 
         $result = HotelModel::where(['hotel_id'=>$hotel_id])->update($data);
+        var_dump($result);exit;
         if($result){
             return $this->getBack('1', '修改成功', '');
         }else{
