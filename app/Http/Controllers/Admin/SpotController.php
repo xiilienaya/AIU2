@@ -454,7 +454,7 @@ class SpotController extends Controller
         $plane_des = !empty($data['plane_des']) ? $data['plane_des'] : '';          //城市id
         $plane_start = !empty($data['plane_start']) ? $data['plane_start'] : '';          //城市id
         $plane_end = !empty($data['plane_end']) ? $data['plane_end'] : '';          //城市id
-        $plane_food = !empty($data['pluserStringane_food']) ? $data['plane_food'] : '';          //城市id
+        $plane_food = !empty($data['plane_food']) ? $data['plane_food'] : '';          //城市id
         $plane_price = !empty($data['plane_price']) ? $data['plane_price'] : '';          //城市id
         $plane_jingji = !empty($data['plane_jingji']) ? $data['plane_jingji'] : '';          //城市id
         $plane_shangwu = !empty($data['plane_shangwu']) ? $data['plane_shangwu'] : '';          //城市id
