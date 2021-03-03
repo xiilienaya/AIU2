@@ -48,4 +48,4 @@ Route::post("/hotelTypeList","HotelTypeController@hotelTypeList");
 Route::post("/hotelTypeDel","HotelTypeController@hotelTypeDel");
 Route::post("/hotelTypeDetail","HotelTypeController@hotelTypeDetail");
 Route::post("/hotelTypeUpd","HotelTypeController@hotelTypeUpd");
-Route::post("/hotelTypAdd","HotelTypeController@hotelTypeAdd");
+Route::post("/hotelTypeAdd","HotelTypeController@hotelTypeAdd");
