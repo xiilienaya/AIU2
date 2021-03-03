@@ -131,6 +131,7 @@ class HotelTypeController extends Controller
         $type_jianjie = !empty($data['type_jianjie']) ? $data['type_jianjie'] : '';
         $type_food = !empty($data['type_food']) ? $data['type_food'] : '';
         $type_yushi = !empty($data['type_yushi']) ? $data['type_yushi'] : '';
+        $hotel_id = !empty($data['hotel_id']) ? $data['hotel_id'] : '';
         $type_sheshi = !empty($data['type_sheshi']) ? $data['type_sheshi'] : '';
         $type_keji = !empty($data['type_keji']) ? $data['type_keji'] : '';
         $type_wifi = !empty($data['type_wifi']) ? $data['type_wifi'] : '';
@@ -164,6 +165,8 @@ class HotelTypeController extends Controller
             return $this->getBack('0', 'type_zaocan', '');
         }elseif(empty($type_imgList)){
             return $this->getBack('0', 'type_imgList', '');
+        }elseif(empty($hotel_id)){
+            return $this->getBack('0', 'hotel_id', '');
         }
 
         $data=[
@@ -178,6 +181,7 @@ class HotelTypeController extends Controller
             'type_price'=>$type_price,
             'type_cancel'=>$type_cancel,
             'type_zaocan'=>$type_zaocan,
+            'hotel_id'=>$hotel_id,
             'type_imgList'=>$type_imgList,
         ];
 
