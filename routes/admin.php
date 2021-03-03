@@ -1,7 +1,7 @@
 <?php
 //用户
 Route::get("/user","userController@index");
-Route::get("/userLogin","userController@userLogin");
+Route::post("/userLogin","userController@userLogin");
 Route::post("/userAdmin","userController@update");
 Route::post("/delUser","userController@delete");
 
