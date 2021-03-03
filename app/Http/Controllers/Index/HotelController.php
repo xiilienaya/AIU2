@@ -204,8 +204,9 @@ class HotelController extends Controller
 
         if($horder){
             foreach ($horder as $key=>$value){
-                $hotel_name = HotelModel::where(['hotel_id' => $value['hotel_id']])->select('hotel_name')->first();
+                $hotel_name = HotelModel::where(['hotel_id' => $value['hotel_id']])->select('hotel_name','horder_end')->first();
                 $horder[$key]['hotel_name'] = $hotel_name['hotel_name'];
+                $horder[$key]['horder_end'] = $hotel_name['horder_end'];
             }
 
             return $this->getBack('1','OK',$horder);

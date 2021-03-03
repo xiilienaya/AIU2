@@ -9,11 +9,33 @@ use App\Http\Controllers\Controller;
 class userController extends Controller
 {
 
+    public function userLogin(Request $request){
+        $data = $request->post();
+
+        $user_tel = !empty($data['user_tel']) ? $data['user_tel'] : '';
+        $user_pwd = !empty($data['user_pwd']) ? $data['user_pwd'] : '';
+        if (empty($user_tel)) {
+            return $this->getBack('0', 'user_tel', '');
+        }else if (empty($user_pwd)) {
+            return $this->getBack('0', 'user_pwd', '');
+        }
+
+
+        $user = userModel::where(['user_tel'=>$user_tel,'user_pwd'=>$user_pwd,'user_admin'=>'1'])->first();
+        if($user){
+            $user = empty($user) ? array():$user->toArray();
+            return $this->getBack('1','登录成功',$user['user_id']);
+        }else{
+            return  $this->getBack('0','失败','');
+        }
+    }
+
+
     public function index(){
         $user = userModel::orderBy('user_zctime', 'desc')->get();
         return  $this->getBack('1','OK',$user);
     }
-    
+
     public function delete(Request $request){
         $data = $request->post();
 
