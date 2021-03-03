@@ -200,13 +200,12 @@ class HotelController extends Controller
             }
         }
 
-        $horder = HorderModel::where(['user_id'=>$user_id])->select('horder_id','hotel_id','horder_start','horder_price','horder_number','horder_state')->get();
+        $horder = HorderModel::where(['user_id'=>$user_id])->select('horder_id','hotel_id','horder_start','horder_price','horder_number','horder_state','horder_end')->get();
 
         if($horder){
             foreach ($horder as $key=>$value){
-                $hotel_name = HotelModel::where(['hotel_id' => $value['hotel_id']])->select('hotel_name','horder_end')->first();
+                $hotel_name = HotelModel::where(['hotel_id' => $value['hotel_id']])->select('hotel_name')->first();
                 $horder[$key]['hotel_name'] = $hotel_name['hotel_name'];
-                $horder[$key]['horder_end'] = $hotel_name['horder_end'];
             }
 
             return $this->getBack('1','OK',$horder);
