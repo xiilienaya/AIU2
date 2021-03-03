@@ -229,7 +229,6 @@ class SpotController extends Controller
     public function hotelAdd(Request $request){
         $data = $request->post();
 
-        $hotel_id = !empty($data['hotel_id']) ? $data['hotel_id'] : '';          //城市id
         $hotel_name = !empty($data['hotel_name']) ? $data['hotel_name'] : '';          //城市id
         $hotel_price = !empty($data['hotel_price']) ? $data['hotel_price'] : '';          //城市id
         $hotel_star = !empty($data['hotel_star']) ? $data['hotel_star'] : '';          //城市id
@@ -249,9 +248,7 @@ class SpotController extends Controller
         $hotel_address = !empty($data['hotel_address']) ? $data['hotel_address'] : '';          //城市id
         $hotel_city = !empty($data['hotel_city']) ? $data['hotel_city'] : '';          //城市id
 
-        if (empty($hotel_id)) {
-            return $this->getBack('0', 'hotel_id', '');
-        }elseif (empty($hotel_name)) {
+         if (empty($hotel_name)) {
             return $this->getBack('0', 'hotel_name', '');
         }elseif (empty($hotel_price)) {
             return $this->getBack('0', 'hotel_price', '');
