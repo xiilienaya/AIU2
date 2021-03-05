@@ -134,7 +134,7 @@ class PlaneController extends Controller
             return $this->getBack('0', '无此用户', '');
         }
 
-        $plane = POrderModel::where(['po_state'=>'1'])->select('po_id','po_state','po_time')->get();
+        $plane = POrderModel::where(['po_state'=>'1'])->select('po_id','po_state','po_time','plane_id')->get();
         if($plane){
             foreach ($plane as $key=>$value){
 
