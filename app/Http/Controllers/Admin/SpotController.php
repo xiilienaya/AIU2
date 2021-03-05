@@ -459,6 +459,7 @@ class SpotController extends Controller
         $plane_date = !empty($data['plane_date']) ? $data['plane_date'] : '';          //城市id
         $plane_jichang1 = !empty($data['plane_jichang1']) ? $data['plane_jichang1'] : '';          //城市id
         $plane_jichang2 = !empty($data['plane_jichang2']) ? $data['plane_jichang2'] : '';          //城市id
+        $plane_img = !empty($data['plane_img']) ? $data['plane_img'] : '';          //城市id
 
         if (empty($plane_name)) {
             return $this->getBack('0', 'plane_name', '');
@@ -490,11 +491,14 @@ class SpotController extends Controller
             return $this->getBack('0', 'plane_jichang1', '');
         }elseif (empty($plane_jichang2)) {
             return $this->getBack('0', 'plane_jichang2', '');
+        }elseif (empty($plane_img)) {
+            return $this->getBack('0', 'plane_img', '');
         }
         $data=[
             'plane_name' => $plane_name,
             'plane_model' => $plane_model,
             'plane_timing' => $plane_timing,
+            'plane_img' => $plane_img,
             'plane_go' => $plane_go,
             'plane_des' => $plane_des,
             'plane_start' => $plane_start,
@@ -528,7 +532,7 @@ class SpotController extends Controller
         $plane_des = !empty($data['plane_des']) ? $data['plane_des'] : '';          //城市id
         $plane_start = !empty($data['plane_start']) ? $data['plane_start'] : '';          //城市id
         $plane_end = !empty($data['plane_end']) ? $data['plane_end'] : '';          //城市id
-        $plane_food = !empty($data['pluserStringane_food']) ? $data['plane_food'] : '';          //城市id
+        $plane_food = !empty($data['plane_food']) ? $data['plane_food'] : '';          //城市id
         $plane_price = !empty($data['plane_price']) ? $data['plane_price'] : '';          //城市id
         $plane_jingji = !empty($data['plane_jingji']) ? $data['plane_jingji'] : '';          //城市id
         $plane_shangwu = !empty($data['plane_shangwu']) ? $data['plane_shangwu'] : '';          //城市id
