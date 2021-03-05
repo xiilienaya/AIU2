@@ -66,6 +66,7 @@ Route::post('countryHot','CoutryController@countryHot');  //国家热门城市
 //酒店获取
 Route::get('hotelList','HotelController@hotelList');    //获取全部酒店信息列表
 Route::post('hotelSel','HotelController@hotelSel');  //标签筛选酒店列表
+Route::post('horderDel','HotelController@horderDel');  //删除酒店订单
 Route::post('hotelDetail','HotelController@hotelDetail');  //取酒店详情
 Route::post('hotelType','HotelController@hotelType');  //取酒店类型
 Route::post('hotelPl','HotelController@hotelPl');  //取酒店评论
@@ -80,8 +81,12 @@ Route::get('plane','PlaneController@plane');  //获取航班
 Route::post('selPlane','PlaneController@selPlane');  //筛选航班
 Route::post('addPlaneOrder','PlaneController@addPlaneOrder');  //添加订单
 Route::post('userPlane','PlaneController@userPlane');  //获取用户的航班订单
+Route::post('planeOrderUpd','PlaneController@planeOrderUpd');  //订单取消
 Route::post('planeOrderDetail','PlaneController@planeOrderDetail');  //获取用户的航班订单
 Route::post('planeDetail','PlaneController@planeDetail');  //获取用户的航班订单
+Route::post('planeOrderDel','PlaneController@planeOrderDel');  //删除用户的航班订单
 
 //提交反馈
+Route::get('opinionList','PlaneController@opinionList');  //获取反馈
 Route::post('addOpinion','PlaneController@addOpinion');  //提交反馈
+Route::post('opinionDel','PlaneController@opinionDel');  //反馈删除

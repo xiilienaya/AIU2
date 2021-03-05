@@ -266,6 +266,28 @@ class HotelController extends Controller
      * @param Request $request
      * @return false|mixed|string
      */
+    public function horderDel(Request $request){
+        $data = $request->post();
+
+        $horder_id = empty($data['horder_id'])?'':$data['horder_id'];
+
+        if(empty($horder_id)){
+            return $this->getBack('0','订单错误','');
+        }
+
+        $horder = HorderModel::where(['horder_id'=>$horder_id])->delete();
+        if($horder){
+            return $this->getBack('1','删除成功','');
+        }else{
+            return $this->getBack('0','删除失败','');
+        }
+
+    }
+
+    /**
+     * @param Request $request
+     * @return false|mixed|string
+     */
     public function addHotelPl(Request $request){
         $data = $request->post();
 

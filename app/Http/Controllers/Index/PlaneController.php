@@ -179,6 +179,68 @@ class PlaneController extends Controller
         }
     }
 
+    public function planeOrderDel(Request $request){
+        $data = $request->post();
+
+        $porder_id = !empty($data['porder_id']) ? $data['porder_id'] : '';
+        if (empty($porder_id)){
+            return $this->getBack('0', '无此订单', '');
+        }
+        $porder = POrderModel::where(['po_id'=>$porder_id])->delete();
+
+        if($porder){
+            return $this->getBack('1','删除成功','');
+        }else{
+            return $this->getBack('0','删除失败','');
+        }
+    }
+
+    public function planeOrderUpd(Request $request){
+        $data = $request->post();
+
+        $porder_id = !empty($data['porder_id']) ? $data['porder_id'] : '';
+        $po_state = !empty($data['po_state']) ? $data['po_state'] : '';
+        if (empty($porder_id)){
+            return $this->getBack('0', '无此订单', '');
+        }else if (empty($po_state)){
+            return $this->getBack('0', '状态无', '');
+        }
+
+        $result =POrderModel::where(['po_id'=>$porder_id])->update(['po_state'=>$po_state]);
+        if($result){
+            return $this->getBack('0', '取消成功', '');
+        }else{
+            return $this->getBack('0', '取消失败', '');
+        }
+    }
+
+    public function opinionList(){
+        $result = OpinionModel::get();
+        return $this->getBack('1','成功!',$result);
+    }
+
+    /**
+     * @param Request $request
+     * @return false|mixed|string
+     */
+    public function opinionDel(Request $request){
+        $data = $request->post();
+
+        $op_id = !empty($data['op_id']) ? $data['op_id'] : '';
+        if (empty($op_id)){
+            return $this->getBack('0', '意见id', '');
+        }
+
+        $result = OpinionModel::where(['op_id'=>$op_id])->delete();
+
+        if($result){
+            return $this->getBack('1','删除反馈成功!','');
+        }else{
+            return $this->getBack('2','删除反馈失败','');
+        }
+
+    }
+
     /**
      * @param Request $request
      * @return false|mixed|string
