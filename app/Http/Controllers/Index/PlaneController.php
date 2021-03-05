@@ -137,7 +137,9 @@ class PlaneController extends Controller
         $plane = POrderModel::where(['po_state'=>'1'])->select('po_id','po_state','po_time')->get();
         if($plane){
             foreach ($plane as $key=>$value){
-                if(time() > strtotime($value['po_time'])){
+
+                $time = PlaneModel::where(['plane_id'=>$value['plane_id']])->select('plane_end','plane_date')->first();
+                if(time() > strtotime($time['plane_end'].$time['plane_date'])){
                     POrderModel::where(['po_id'=>$value['po_id']])->update(['po_state'=>'2']);
                 }
             }
