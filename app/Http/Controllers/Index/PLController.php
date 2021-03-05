@@ -98,7 +98,6 @@ class PLController extends Controller
                 $user = userModel::where(['user_id'=>$value['user_id']])->first();
                 $user = empty($user) ? array():$user->toArray();
 
-                $result[$key]['pl_time'] = date('Y-m-d H:i:s',$value['pl_time']);
                 $result[$key]['user_name'] = $user['user_name'];
                 $result[$key]['user_img'] = $user['user_img'];
             }
