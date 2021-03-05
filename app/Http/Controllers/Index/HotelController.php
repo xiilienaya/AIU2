@@ -124,6 +124,7 @@ class HotelController extends Controller
         $horder_tel = !empty($data['horder_tel']) ? $data['horder_tel'] : '';                  //住客手机号
         $horder_fapiao = !empty($data['horder_fapiao']) ? $data['horder_fapiao'] : '';                  //发票
         $horder_days = !empty($data['horder_days']) ? $data['horder_days'] : '';                  //入住天数
+        $horder_time = !empty($data['horder_time']) ? $data['horder_time'] : '';                  //入住天数
 
         if (empty($hotel_id)) {
             return $this->getBack('0', '无此酒店', '');
@@ -151,6 +152,8 @@ class HotelController extends Controller
             return $this->getBack('0', '发票', '');
         }else if(empty($horder_days)){
             return $this->getBack('0', '入住天数', '');
+        }else if(empty($horder_time)){
+            return $this->getBack('0', 'horder_time', '');
         }
 
         $data = [
@@ -166,6 +169,7 @@ class HotelController extends Controller
             'horder_name' => $horder_name,
             'horder_tel' => $horder_tel,
             'horder_fapiao' => $horder_fapiao,
+            'horder_time' => $horder_time,
             'horder_days' => $horder_days,
         ];
 

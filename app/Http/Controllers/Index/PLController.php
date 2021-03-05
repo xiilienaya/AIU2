@@ -23,6 +23,7 @@ class PLController extends Controller
         $user_id = !empty($data['user_id']) ? $data['user_id'] : '';          //用户id
         $yj_id = !empty($data['yj_id']) ? $data['yj_id'] : '';          //游记id
         $pl_content = !empty($data['pl_content']) ? $data['pl_content'] : '';          //评论信息
+        $pl_time = !empty($data['pl_time']) ? $data['pl_time'] : '';          //评论信息
 
         if (empty($user_id)) {
             return $this->getBack('0', '无此用户', '');
@@ -30,9 +31,11 @@ class PLController extends Controller
             return $this->getBack('0', '无此游记', '');
         }elseif (empty($pl_content)) {
             return $this->getBack('0', '评论信息', '');
+        }elseif (empty($pl_time)) {
+            return $this->getBack('0', '评论时间', '');
         }
 
-        $where = ['user_id'=>$user_id,'yj_id'=>$yj_id,'pl_content'=>$pl_content];
+        $where = ['user_id'=>$user_id,'yj_id'=>$yj_id,'pl_content'=>$pl_content,'pl_time'=>$pl_time];
 
         $result = PLModel::insertGetId($where);
         if($result){
